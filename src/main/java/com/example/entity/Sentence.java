@@ -3,10 +3,15 @@ package com.example.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+@javax.persistence.Entity
 public class Sentence implements Serializable {
 
 	/**
@@ -14,6 +19,8 @@ public class Sentence implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idSentence;
 	private String sentence;
 

@@ -1,12 +1,18 @@
 package com.example.entity;
 
 import java.io.Serializable;
+
 import java.util.List;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+@javax.persistence.Entity
 public class Entity implements Serializable {
 
 	/**
@@ -14,6 +20,8 @@ public class Entity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idEntity;
 	private float sentiment;
 	private float salience;

@@ -24,6 +24,30 @@ public class SentenceEntityRelation implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "idEntity", referencedColumnName = "idEntity", insertable = false, updatable = false)
-	private Entity entity;
+	private com.example.entity.Entity entity;
+
+	public SentenceEntityRelationPK getSentenceRelationPK() {
+		return sentenceRelationPK;
+	}
+
+	public void setSentenceRelationPK(SentenceEntityRelationPK sentenceRelationPK) {
+		this.sentenceRelationPK = sentenceRelationPK;
+	}
+
+	public Sentence getSentence() {
+		return sentence;
+	}
+
+	public void setSentence(Sentence sentence) {
+		this.sentence = sentence;
+	}
+
+	public com.example.entity.Entity getEntity() {
+		return entity;
+	}
+
+	public void setEntity(com.example.entity.Entity entity) {
+		this.entity = entity;
+	}
 
 }
