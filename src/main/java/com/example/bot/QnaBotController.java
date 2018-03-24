@@ -98,24 +98,6 @@ public class QnaBotController {
 				List<String> entitiesNames = new ArrayList<>();
 				for (Entity e : entities) {
 					entitiesNames.add(e.getName());
-					Sentence sentenceUser = new Sentence();
-					sentenceUser.setSentence(customerMessage);
-					sentenceRepository.saveAndFlush(sentenceUser);
-					com.example.entity.Entity entityUser = new com.example.entity.Entity();
-					entityUser.setNameEntity(e.getName());
-					entityUser.setSalience(e.getSalience());
-					entityRepository.saveAndFlush(entityUser);
-					SentenceEntityRelationPK sentenceEntityRelationPK = new SentenceEntityRelationPK();
-					sentenceEntityRelationPK.setIdEntity(entityUser.getIdEntity());
-					sentenceEntityRelationPK.setIdSentence(sentenceUser.getIdSentence());
-					
-					SentenceEntityRelation sentenceEntityRelation = new SentenceEntityRelation();
-					sentenceEntityRelation.setSentenceRelationPK(sentenceEntityRelationPK);
-					sentenceEntityRelation.setEntity(entityUser);
-					sentenceEntityRelation.setSentence(sentenceUser);
-					
-					sentenceRelationRepository.saveAndFlush(sentenceEntityRelation);
-					
 				}
 
 				Sentence sentence = new Sentence();
@@ -128,6 +110,26 @@ public class QnaBotController {
 					TextMessage textMessage = new TextMessage("sorry, there is no similar sentence.");
 					PushMessage pushMessage = new PushMessage(userId, textMessage);
 					LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+				}
+
+				for (Entity e : entities) {
+					Sentence sentenceUser = new Sentence();
+					sentenceUser.setSentence(customerMessage);
+					sentenceRepository.saveAndFlush(sentenceUser);
+					com.example.entity.Entity entityUser = new com.example.entity.Entity();
+					entityUser.setNameEntity(e.getName());
+					entityUser.setSalience(e.getSalience());
+					entityRepository.saveAndFlush(entityUser);
+					SentenceEntityRelationPK sentenceEntityRelationPK = new SentenceEntityRelationPK();
+					sentenceEntityRelationPK.setIdEntity(entityUser.getIdEntity());
+					sentenceEntityRelationPK.setIdSentence(sentenceUser.getIdSentence());
+
+					SentenceEntityRelation sentenceEntityRelation = new SentenceEntityRelation();
+					sentenceEntityRelation.setSentenceRelationPK(sentenceEntityRelationPK);
+					sentenceEntityRelation.setEntity(entityUser);
+					sentenceEntityRelation.setSentence(sentenceUser);
+
+					sentenceRelationRepository.saveAndFlush(sentenceEntityRelation);
 				}
 
 			} catch (Exception e) {
