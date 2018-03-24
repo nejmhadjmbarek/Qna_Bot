@@ -25,6 +25,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.entity.BotInformation;
 import com.example.entity.Sentence;
+import com.example.entity.SentenceEntityRelation;
+import com.example.entity.SentenceEntityRelationPK;
 import com.example.repository.BotInformationRepository;
 import com.example.repository.EntityRepository;
 import com.example.repository.SentenceEntityRelationRepository;
@@ -96,13 +98,37 @@ public class QnaBotController {
 				List<String> entitiesNames = new ArrayList<>();
 				for (Entity e : entities) {
 					entitiesNames.add(e.getName());
+					Sentence sentenceUser = new Sentence();
+					sentenceUser.setSentence(customerMessage);
+					sentenceRepository.saveAndFlush(sentenceUser);
+					com.example.entity.Entity entityUser = new com.example.entity.Entity();
+					entityUser.setNameEntity(e.getName());
+					entityUser.setSalience(e.getSalience());
+					entityRepository.saveAndFlush(entityUser);
+					SentenceEntityRelationPK sentenceEntityRelationPK = new SentenceEntityRelationPK();
+					sentenceEntityRelationPK.setIdEntity(entityUser.getIdEntity());
+					sentenceEntityRelationPK.setIdSentence(sentenceUser.getIdSentence());
+					
+					SentenceEntityRelation sentenceEntityRelation = new SentenceEntityRelation();
+					sentenceEntityRelation.setSentenceRelationPK(sentenceEntityRelationPK);
+					sentenceEntityRelation.setEntity(entityUser);
+					sentenceEntityRelation.setSentence(sentenceUser);
+					
+					sentenceRelationRepository.saveAndFlush(sentenceEntityRelation);
+					
 				}
 
 				Sentence sentence = new Sentence();
 				sentence = similarSentance(entitiesNames);
-				TextMessage textMessage = new TextMessage(sentence.getSentence());
-				PushMessage pushMessage = new PushMessage(userId, textMessage);
-				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+				if (sentence != null && !sentence.equals("")) {
+					TextMessage textMessage = new TextMessage(sentence.getSentence());
+					PushMessage pushMessage = new PushMessage(userId, textMessage);
+					LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+				} else {
+					TextMessage textMessage = new TextMessage("sorry, there is no similar sentence.");
+					PushMessage pushMessage = new PushMessage(userId, textMessage);
+					LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
