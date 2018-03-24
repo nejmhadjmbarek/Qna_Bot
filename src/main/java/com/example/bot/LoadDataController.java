@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.com.EntityRepository;
-import com.example.com.SentenceEntityRelationRepository;
-import com.example.com.SentenceRepository;
+
 import com.example.entity.Sentence;
 import com.example.entity.SentenceEntityRelation;
 import com.example.entity.SentenceEntityRelationPK;
+import com.example.repository.EntityRepository;
+import com.example.repository.SentenceEntityRelationRepository;
+import com.example.repository.SentenceRepository;
 import com.google.cloud.language.v1.Entity;
 
 @RestController
@@ -60,7 +61,7 @@ public class LoadDataController {
 
 				com.example.entity.Entity entityDb = new com.example.entity.Entity();
 
-				entityDb.setNamleEntity(entity.getName());
+				entityDb.setNameEntity(entity.getName());
 				entityDb.setSalience(entity.getSalience());
 
 				entityDb = entityRepository.save(entityDb);
