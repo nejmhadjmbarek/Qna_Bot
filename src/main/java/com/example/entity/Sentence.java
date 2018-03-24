@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @javax.persistence.Entity
 public class Sentence implements Serializable {
 
@@ -23,6 +22,7 @@ public class Sentence implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idSentence;
 	private String sentence;
+	private String language;
 
 	@OneToMany(mappedBy = "sentence")
 	@JsonIgnoreProperties({ "sentence", "entity" })
@@ -50,6 +50,14 @@ public class Sentence implements Serializable {
 
 	public void setSentenceEntityRelation(List<SentenceEntityRelation> sentenceEntityRelation) {
 		this.sentenceEntityRelation = sentenceEntityRelation;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }
