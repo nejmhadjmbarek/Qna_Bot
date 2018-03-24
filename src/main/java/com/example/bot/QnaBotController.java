@@ -2,6 +2,7 @@ package com.example.bot;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -15,6 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.cloud.language.v1.AnalyzeEntitiesRequest;
+import com.google.cloud.language.v1.AnalyzeEntitiesResponse;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.EncodingType;
+import com.google.cloud.language.v1.Entity;
+import com.google.cloud.language.v1.EntityMention;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Document.Type;
 
 @RestController
 public class QnaBotController {
@@ -55,6 +65,17 @@ public class QnaBotController {
 
 		if (intentName.equals("Default Fallback Intent")) {
 			logger.info("********************Default Fallback Intent******************");
+			
+			
+			try {
+				List<Entity> entities=analyzeEntitiesText(customerMessage);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 
 		}
 
@@ -66,4 +87,57 @@ public class QnaBotController {
 
 	}
 
+	
+	
+	/**
+	 * Identifies entities in the string {@code text}.
+	 * @return 
+	 */
+	public  List<Entity> analyzeEntitiesText(String text) throws Exception {
+		// [START analyze_entities_text]
+		// Instantiate the Language client
+		// com.google.cloud.language.v1.LanguageServiceClient
+		try (LanguageServiceClient language = LanguageServiceClient.create()) {
+			Document doc = Document.newBuilder().setContent(text).setType(Type.PLAIN_TEXT).build();
+			AnalyzeEntitiesRequest request = AnalyzeEntitiesRequest.newBuilder().setDocument(doc)
+					.setEncodingType(EncodingType.UTF16).build();
+
+			AnalyzeEntitiesResponse response = language.analyzeEntities(request);
+
+			// Print the response
+			for (Entity entity : response.getEntitiesList()) {
+				logger.info("********************Entity : '{}'", entity.getName());
+
+				logger.info("********************Salience : '{}'",  entity.getSalience());
+
+			
+//				for (Map.Entry<String, String> entry : entity.getMetadataMap().entrySet()) {
+//					System.out.printf("%s : %s", entry.getKey(), entry.getValue());
+//				}
+				for (EntityMention mention : entity.getMentionsList()) {
+					System.out.printf("Begin offset: %d\n", mention.getText().getBeginOffset());
+					System.out.printf("Content: %s\n", mention.getText().getContent());
+					System.out.printf("Type: %s\n\n", mention.getType());
+				}
+			}
+			return   response.getEntitiesList();
+
+			
+		}
+		
+		
+		// [END analyze_entities_text]
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
