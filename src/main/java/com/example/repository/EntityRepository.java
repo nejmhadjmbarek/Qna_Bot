@@ -1,4 +1,4 @@
-package com.example.com;
+package com.example.repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,10 +12,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RepositoryRestResource
-
 public interface EntityRepository extends JpaRepository<com.example.entity.Entity, Serializable>{
 
-	@Query("SELECT e FROM Entity WHERE e.sentenceEntityRelation.idSentence=:idSentence")
-	public List<com.example.entity.Entity> getEntitiesOfSentence(@Param("idSentence") int idSentence); 
-	
 }

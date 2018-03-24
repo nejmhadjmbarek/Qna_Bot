@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.message.TextMessage;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -19,9 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.com.EntityRepository;
-import com.example.com.SentenceRepository;
+import com.example.entity.BotInformation;
 import com.example.entity.Sentence;
+import com.example.repository.BotInformationRepository;
+import com.example.repository.EntityRepository;
+import com.example.repository.SentenceEntityRelationRepository;
+import com.example.repository.SentenceRepository;
 import com.google.cloud.language.v1.AnalyzeEntitiesRequest;
 import com.google.cloud.language.v1.AnalyzeEntitiesResponse;
 import com.google.cloud.language.v1.Document;
@@ -39,6 +46,10 @@ public class QnaBotController {
 
 	@Autowired
 	EntityRepository entityRepository;
+	@Autowired
+	SentenceEntityRelationRepository sentenceRelationRepository;
+	@Autowired
+	BotInformationRepository botInformationRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(QnaBotController.class);
 
@@ -78,10 +89,22 @@ public class QnaBotController {
 			logger.info("********************Default Fallback Intent******************");
 
 			try {
+				BotInformation botInformation = new BotInformation();
+				botInformation.setSentenceToSearch(customerMessage);
+				botInformationRepository.saveAndFlush(botInformation);
 				List<Entity> entities = analyzeEntitiesText(customerMessage);
+				List<String> entitiesNames = new ArrayList<>();
+				for (Entity e : entities) {
+					entitiesNames.add(e.getName());
+				}
+
+				Sentence sentence = new Sentence();
+				sentence = similarSentance(entitiesNames);
+				TextMessage textMessage = new TextMessage(sentence.getSentence());
+				PushMessage pushMessage = new PushMessage(userId, textMessage);
+				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -129,15 +152,32 @@ public class QnaBotController {
 		// [END analyze_entities_text]
 	}
 
-//	public Sentence similarSentance(List<Entity> userEntities) {
-//
-//		List<Sentence> sentences = new ArrayList<>();
-//		sentences = sentenceRepository.findAll();
-//		List<com.example.entity.Entity> entities = new ArrayList<>();
-//		for (Sentence s : sentences) {
-//			entities = entityRepository.getEntitiesOfSentence(s.getIdSentence());
-//
-//		}
-//	}
+	public Sentence similarSentance(List<String> userEntities) {
+
+		List<Sentence> sentences = new ArrayList<>();
+		sentences = sentenceRepository.findAll();
+		float maxSalience = 0;
+		Sentence similarSentence = new Sentence();
+
+		List<com.example.entity.Entity> entities = new ArrayList<>();
+		float salience = 0;
+		for (Sentence s : sentences) {
+			entities = sentenceRelationRepository.getEntitiesOfSentence(s.getIdSentence());
+			for (com.example.entity.Entity e : entities) {
+				if (userEntities.contains(e.getNameEntity())) {
+					salience = salience + e.getSalience();
+				} else {
+					salience = (float) (salience - 0.001);
+				}
+			}
+
+			if (salience > maxSalience) {
+				maxSalience = salience;
+				similarSentence = s;
+			}
+			salience = 0;
+		}
+		return similarSentence;
+	}
 
 }

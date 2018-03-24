@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @javax.persistence.Entity
 public class Entity implements Serializable {
 
@@ -63,11 +62,11 @@ public class Entity implements Serializable {
 		this.sentenceEntityRelation = sentenceEntityRelation;
 	}
 
-	public String getNamleEntity() {
+	public String getNameEntity() {
 		return nameEntity;
 	}
 
-	public void setNamleEntity(String nameEntity) {
+	public void setNameEntity(String nameEntity) {
 		this.nameEntity = nameEntity;
 	}
 

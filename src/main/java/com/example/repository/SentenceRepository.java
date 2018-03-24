@@ -1,4 +1,4 @@
-package com.example.com;
+package com.example.repository;
 
 import java.io.Serializable;
 
@@ -10,7 +10,6 @@ import com.example.entity.Sentence;
 
 @Repository
 @RepositoryRestResource
-
 public interface SentenceRepository  extends JpaRepository<Sentence, Serializable>{
 
 }

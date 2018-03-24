@@ -45,6 +45,12 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>com.linecorp.bot</groupId>
+			<artifactId>line-bot-api-client</artifactId>
+			<version>1.14.0</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 		</dependency>
