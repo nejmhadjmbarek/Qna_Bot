@@ -3,6 +3,7 @@ package com.example.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ public class Sentence implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idSentence;
+	@Column(name = "sentence", length = 10485760)
 	private String sentence;
 	private String language;
 

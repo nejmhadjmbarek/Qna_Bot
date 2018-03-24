@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +25,7 @@ public class Entity implements Serializable {
 	private int idEntity;
 	private float sentiment;
 	private float salience;
+	@Column(name = "nameEntity", length = 10485760)
 	private String nameEntity;
 
 	@OneToMany(mappedBy = "entity")
