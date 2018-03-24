@@ -25,6 +25,7 @@ public class Entity implements Serializable {
 	private int idEntity;
 	private float sentiment;
 	private float salience;
+	private String nameEntity;
 
 	@OneToMany(mappedBy = "entity")
 	@JsonIgnoreProperties({ "sentence", "entity" })
@@ -60,6 +61,14 @@ public class Entity implements Serializable {
 
 	public void setSentenceEntityRelation(List<SentenceEntityRelation> sentenceEntityRelation) {
 		this.sentenceEntityRelation = sentenceEntityRelation;
+	}
+
+	public String getNamleEntity() {
+		return nameEntity;
+	}
+
+	public void setNamleEntity(String nameEntity) {
+		this.nameEntity = nameEntity;
 	}
 
 }
