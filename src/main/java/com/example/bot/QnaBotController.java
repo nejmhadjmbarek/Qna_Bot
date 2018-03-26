@@ -183,7 +183,7 @@ public class QnaBotController {
 			try {
 				int idSentence;
 				if (botInformation.getLanguageBot().equals("japanese")) {
-					idSentence = anyIDJapanese();
+					idSentence = anyID("japanese");
 					Sentence sentence = new Sentence();
 					sentence = sentenceRepository.findOne(idSentence);
 					botInformation.setSentenceToSearch(sentence.getSentence());
@@ -206,7 +206,7 @@ public class QnaBotController {
 				}
 
 				else if (botInformation.getLanguageBot().equals("english")) {
-					idSentence = anyIDEnglish();
+					idSentence = anyID("english");
 					Sentence sentence = new Sentence();
 					sentence = sentenceRepository.findOne(idSentence);
 					botInformation.setSentenceToSearch(sentence.getSentence());
@@ -264,15 +264,15 @@ public class QnaBotController {
 			break;
 
 		case "language":
-			logger.info("------------language--------------------", language);
-			if (language.equals("English") || language.equals("en") || language.equals("english")) {
-				botInformation.setLanguageBot("english");
+			logger.info("------------language--------------------", customerMessage);
+			if (customerMessage.equals("english")) {
+				botInformation.setLanguageBot("English");
 			} else {
-				botInformation.setLanguageBot("japanese");
+				botInformation.setLanguageBot("Japanese");
 			}
 			botInformationRepository.saveAndFlush(botInformation);
 			break;
-			
+
 		}
 		return obj;
 	}
@@ -347,19 +347,9 @@ public class QnaBotController {
 		return similarSentence;
 	}
 
-	public int anyIDEnglish() {
+	public int anyID(String language) {
 		List<Integer> sentenceIDs = new ArrayList<>();
-		sentenceIDs = sentenceRepository.getAllSentenceIDsEnglish();
-		Random randomGenerator = new Random();
-		int index = randomGenerator.nextInt(sentenceIDs.size());
-		int item = sentenceIDs.get(index);
-		logger.info("****************item English******************** '{}'", item);
-		return item;
-	}
-
-	public int anyIDJapanese() {
-		List<Integer> sentenceIDs = new ArrayList<>();
-		sentenceIDs = sentenceRepository.getAllSentenceIDsJapanese();
+		sentenceIDs = sentenceRepository.getAllSentenceIDs(language);
 		Random randomGenerator = new Random();
 		int index = randomGenerator.nextInt(sentenceIDs.size());
 		int item = sentenceIDs.get(index);
