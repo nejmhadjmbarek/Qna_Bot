@@ -29,335 +29,306 @@ public class LoadDataController {
 	public String storeSentenceToDataBase() {
 
 		List<String> sentenceStringList = new ArrayList<>();
-		sentenceStringList.add("The most important thing in communication is hearing what isn't said.");
+		sentenceStringList.add("目標は絶対のものではなく、方向を示すものである。");
 		sentenceStringList.add(
-				"Listening (the first competence of leadership) is not a skill, it is a discipline. All you have to do is keep your mouth shut.\n"
-						+ "");
+				"企業の目的と使命を定義するとき、出発点はひとつしかない。顧客である。顧客を満足させることが企業の使命であり、目的である。	企業の目的と使命を定義するとき、出発点はひとつしかない。顧客である。顧客を満足させることが企業の使命であり、目的である。");
+		sentenceStringList.add("成果をあげる者は、新しい活動を始める前に必ず古い活動を捨てる。");
+		sentenceStringList.add("成果をあげる者は、新しい活動を始める前に必ず古い活動を捨てる。	成果をあげる者は、新しい活動を始める前に必ず古い活動を捨てる。");
+		sentenceStringList.add("まず何よりも、変化を脅威ではなく機会としてとらえなければならない。");
+		sentenceStringList.add("我々は今いる人間をもって組織をマネジメントしなければならない。");
+		sentenceStringList.add("「私は」ではなく「我々は」を考えることが大切。");
+		sentenceStringList.add("リスクが富を生む。");
+		sentenceStringList.add("成功してきたのと同じ貢献を続けていたのでは、失敗する。");
+		sentenceStringList.add("一人の力で成功することは絶対にない。一人の力が他人の協力を得たとき、初めて事業は成功する。");
+		sentenceStringList.add("人間は「自分でなければできない」と錯覚していることが多すぎる。");
+		sentenceStringList.add("真摯さはごまかせない。");
+		sentenceStringList.add("チャンスは一念専心によって、かろうじて得ることが出来る。");
+		sentenceStringList.add("すべての仕事について、まったくしなかったならば何が起こるかを考える。何も起こらないが答えであるならば、その仕事は直ちにやめるべきである。");
+		sentenceStringList.add("計画は紙の上で消える。よき意図の表明に終わる。実行されることは稀である。");
+		sentenceStringList.add("業績を上げる最大のカギは責任感である。権威や権限ではない。");
+		sentenceStringList.add("過去のリーダーの仕事は「命じること」だが、未来のリーダーの仕事は「聞くこと」が重要になる。");
+		sentenceStringList.add("時間の使い方は練習によって改善できる。だが、たえず努力しない限り仕事に流される。");
+		sentenceStringList.add("知的労働においては、時間の活用と浪費の違いは、成果と業績に直接現れる。");
+		sentenceStringList.add("クライメットクリエイターが経営者だ。");
+		sentenceStringList.add("【覚え書き｜クライメットクリエイター＝組織や場の気候・空気・雰囲気をつくる人】");
+		sentenceStringList.add("何事かを成し遂げるのは、強みによってである。弱みによって何かを行うことはできない。できないことによって何かを行うことなど、到底できない。");
+		sentenceStringList.add("これからは、誰もが自らをマネジメントしなければならない。自らを最も貢献できる場所に置き、成長していかなければならない。");
 		sentenceStringList.add(
-				"Thus, for those who are willing to go out into the field, to look and to listen, changing demographics is both a highly productive and a highly dependable innovation opportunity.");
-		sentenceStringList.add("To improve communications, work not on the utter, but the recipient.");
+				"私の観察によれば、成果をあげる者は仕事からスタートしない。時間からスタートする。計画からもスタートしない。何に時間がとられているかを明らかにすることからスタートする。次に、時間を管理すべく自らの時間を奪おうとする非生産的な要素を退ける。");
+		sentenceStringList.add(
+				"いかなる成果もあげられない人の方がよく働いている。成果の上がらない人は、第一に、ひとつの仕事に必要な時間を過小評価する。第二に、彼らは急ごうとする。第三に、彼らは同時にいくつかのことをしようとする。");
+		sentenceStringList.add("イノベーションを成功させるには、焦点を絞り単純なものにしなければならない。");
+		sentenceStringList.add("時間を管理するには、まず自らの時間をどのように使っているかを知らなければならない。");
+		sentenceStringList.add("誰でも自らの強みについてはよく分かっている。だが、たいていは間違っている。わかっているのはせいぜい弱みである。それさえ間違っていることが多い。");
+		sentenceStringList.add(
+				"組織に働く者は、組織の使命が社会において重要であり、他のあらゆるものの基盤であるとの信念を持たねばならない。この信念がなければ、いかなる組織といえども、自信と誇りを失い、成果をあげる能力を失う。");
+		sentenceStringList.add("原因は何十年かのちに学者が明らかにするだろうが、行動する経営者としては待っていられないだろう。使えるもの、分かったことはどんどん使いなさい。");
+		sentenceStringList.add("急成長会社では、無能な者が要職にいる。会社の成長についていけなかった人々である。");
+		sentenceStringList.add("経営者は、その企業の将来について、もっと時間と思索を割くべきである。");
+		sentenceStringList.add("幹部の仕事と知識とは、あまり関係はない。");
+		sentenceStringList.add("他人の短所が目につきすぎる人は、経営者には向いていない。長所を効果的に発揮させるのが自分の仕事だと考える人が、有能な経営者になれる。");
+		sentenceStringList.add("人々を動機付ける能力がなくては、経営者とは言えない。");
+		sentenceStringList.add("決断の場面においては、トップは常に孤独である。");
+		sentenceStringList.add("組織に働く者は、成果に何も寄与しないが無視できない仕事に時間をとられる。膨大な時間が、ほとんど役に立たない仕事、あるいはまったく役に立たない仕事に費やされている。");
+		sentenceStringList.add("経営者が学びえないが、どうしても身につけていかなければならない資質がひとつある。それは品性だ。");
+		sentenceStringList.add("誰かが勇気ある決断をしなければ、どんな事業も成功しないだろう。");
+		sentenceStringList.add("組織が存在するのは組織自身のためではない。自らの機能を果たすことによって、社会、コミュニティー、個人のニーズを満たすためである。組織とは目的ではなく手段である。");
+		sentenceStringList.add("驕るな。企業は社会に存在させていただいているものだ。");
+		sentenceStringList.add("改善の目的は、製品やサービスを改良し、２・３年後にはまったく新しい製品やサービスにしてしまうことである。");
+		sentenceStringList.add(
+				"仕事や成果を大幅に改善するための唯一の方法は、成果を上げるための能力を向上させることである。際立って優れた能力を持つ人を雇うことはできる。あるいは際立って優れた知識を持つ人を雇うこともできる。だが、いかに努力したとしても、能力と知識の向上に関しては、大幅な期待をすることはできない。もはや、これ以上は不可能か、あるいはすくなくとも効果のあまりないような限界に達している。新種のスーパーマンを育てることはできない。現在の人間をもって、組織をマネジメントしなければならない。");
+		sentenceStringList.add(
+				"我々は、一つの重要な分野で強みを持つ人が、その強みをもとに仕事を行えるよう、組織を作ることを学ばなければならない。仕事振りの向上は、人間の能力の飛躍的な増大ではなく、仕事の方法の改善によって図られなければならない。知識についても同じことが言える。優れた知識を大量に持つ人を大量に手に入れようとしても、そのために必要な費用が期待できる成果に比べて高すぎる。");
+		sentenceStringList.add(
+				"成果をあげる人の共通しているのは、自らの能力や存在を成果に結びつける上で、必要とされている習慣的な力である。企業や政府機関で働いていようと、病院の理事長や大学の学長であろうと、まったく同じである。私の知る限り、知能や勤勉さ、想像力や知識がいかに優れようと、そのような習慣的な力に欠ける人は成果をあげることができなかった。成果をあげることは一つの習慣である。習慣的な能力の蓄積である。習慣的な能力は、常に習得に努めることが必要である。習慣になるまで、いやになるほど反復しなければならない。");
+		sentenceStringList.add(
+				"私は、成果をあげる人間のタイプなどというものは存在しないことをかなり前に気づいた。私が知っている成果をあげる人たちは、その気性や能力、仕事や仕事の方法、性格や知識や関心において千差万別だった。共通点は、なすべきことを成し遂げる能力を持っていたことだけだった。");
+		sentenceStringList.add(
+				"どんな分野でも、普通の人であれば並みの能力は身につけられる。卓越することはできないかもしれない。卓越するには、特別の才能が必要だからである。だが、成果を上げるには、成果を上げるための並みの能力で十分である。");
+		sentenceStringList.add(
+				"組織の活動や業績に実質的な貢献をなすべき知識労働者は、すべてエグゼクティブである。組織の活動や業績とは、企業の場合新製品を出すことであり、市場で大きなシェアを獲得することである。病院の場合は、患者に優れた医療サービスを提供することである。組織のそのような能力に実質的な影響を及ぼすために、知識労働者は意思決定をしなければならない。命令に従って行動すればよいというわけにはいかない。自らの貢献について責任を負わなければならない。");
+		sentenceStringList.add(
+				"知識労働者を直接、あるいは細かく監督することはできない。彼らには助力を与えることができるだけである。知識労働者は自らをマネジメントしなければならない。自らの仕事を業績や貢献に結び付けるべく、すなわち成果を上げるべく、自らをマネジメントしなければならない。");
+		sentenceStringList.add(
+				"ものごとをなすべき者の仕事は、成果を上げることである。ものごとをなすということは、成果を上げるということである。企業、病院、政府機関、労働組合、軍隊のいずれにあろうとも、そこに働くものは常に、なすべきことをなすことを期待される。それにもかかわらず、ものごとをなすべき者のうち、大きな成果を上げている者は少ない。");
+		sentenceStringList.add(
+				"知識労働は三種類ある。第一に仕事の成果が純粋に質の問題であるもの。第二に、質と量を共に成果とすべきもの。第三に仕事の成果が肉体労働と同類の仕事が多数あるもの。知識労働の生産性を高めるには、その仕事が成果に関して、いずれの範疇に属するかを知っておく必要がある。");
+		sentenceStringList.add(
+				"知識労働の生産性の向上を図る場合にまず問うべきは、「何が目的か。何を実現しようとしているか。なぜそれを行うか」である。手っ取り早く、しかも、おそらく最も効果的に知識労働の生産性を向上させる方法は、仕事を定義しなおすことである。とくに、行う必要のない仕事をやめることである。");
+		sentenceStringList.add(
+				"我々が強い衝撃を持って最初に学んだことは、知識労働においては、資本は労働（すなわち人間）の代わりにはならないということである。経済学の用語に従えば、肉体労働については、資本と技術は生産要素である。しかし知識労働については、もはやそれらは生産手段であるにすぎない。資本と技術が仕事の生産性を高めるか損ねるかについては、知識労働者がそれらを使って何をいかにするかにかかっている。仕事の目的や、使う人の技量にかかっている。");
+		sentenceStringList.add(
+				"組織は変化に対応するために高度に分権化する必要がある。意思決定を迅速に行わなければならないからである。その意思決定は、成果と市場に密着し、技術に密着し、さらにイノベーションの機会として利用すべき社会、環境、人口構造、知識の変化に密着して行わなければならない。");
+		sentenceStringList.add(
+				"組織は新しいものの創造に専念しなければならない。具体的には、あらゆる組織が三つの体系的な活動に取り組む必要がある。第一に、行うことすべてについて耐えざる改善を行う必要がある。第二に知識の開発、すなわちすでに成功しているものについて、さらに新しい応用法を開発する必要がある。第三にイノベーションの方法を学ぶ必要がある。イノベーションは体系的なプロセスとして組織化することができるし、まさにそのように組織化しなければならない。");
+		sentenceStringList.add(
+				"新しい組織社会では、知識を有するあらゆる者が、４・５年おきに新しい知識を仕入れなければならない。さもなければ時代遅れとなる。このことは、知識に対して最大の影響を与える変化が、その知識の領域で起こるようになっていることからも、重大な意味を持つ。新しい知識を生み、古い知識を陳腐化させるものは、科学や技術とは限らない。社会的なイノベーションのほうが大きな役割を果たすことが多い。");
+		sentenceStringList.add(
+				"昔の人は言った。「夕食の客には教育ある人が良い。しかし砂漠では、教育のある人よりも何かのやり方を知っている人が必要だ。教育ある人間はいらない」。事実すでにアメリカの大学では、伝統的な教養人は、教育ある人間とさえ見なされなくなっている。そのような者は、趣味人として一段下に見られている。");
+		sentenceStringList.add(
+				"３つの段階、産業革命、生産性革命、マネジメント革命の根本にあったものが、知識における意味の変化だった。こうして我々は一般知識から専門知識へと移行してきた。かつての知識は一般知識だった。これに対し、今日知識とされているものは、必然的に高度の専門知識である。");
+		sentenceStringList.add(
+				"知識がなんなるいくつかの資源のうちの一つではなく、資源の中核になったという事実によって、我々の社会はポスト資本主義社会となる。この事実は社会の構造を根本から変える。新しい社会の力学を生み出し、新しい経済の力学を生む。そして新しい政治を生む。");
+		sentenceStringList.add(
+				"土地、労働、資本は制約条件でしかない。それらのものがなければ、知識といえども、何も生み出せない。だが今日では、効果的なマネジメント、すなわち知識の知識に対する適用が行われさえすれば、他の資源はいつでも手に入れられるようになっている。");
+		sentenceStringList.add(
+				"多くの人にとって、マネジメントと言えば企業経営を意味する。だがそれは、単にマネジメントが最初に現れたのが大企業だったからにすぎない。５０年ほど前、マネジメントの研究に取り組んだとき、私も企業のマネジメントに焦点を当てていた。しかしやがて、企業であれ企業以外であれ、あらゆる近代組織において、マネジメントの研究に取り組んだとき、マネジメントの必要性が明らかになっていった。");
+		sentenceStringList.add(
+				"知識労働者が貢献に焦点をあわせることは必須である。それなくして、彼らが貢献する術はない。知識労働者が生産するのは、物ではなくアイデアや情報やコンセプトである。知識労働者は、ほとんどが専門家である。事実彼らは、通常、ひとつのことだけを非常に良く行えるとき、すなわち専門化したときのみ大きな成果を上げる。それだけでは不毛である。専門家の産出物は、他の専門家の産出物と統合されて初めて成果となる。");
+		sentenceStringList.add("昨日を捨てよ。自分が得意だと思っていることに溺れるな。物事の「本質」を鋭く透察する心を持て。");
+		sentenceStringList.add("定年の必要は実際のところ、年老いたということではない。おもな理由は、若者たちに道をあけなければならないということにある。");
+		sentenceStringList.add("手っ取り早く、効果的に生産性を向上させる方法は、何を行うべきかを明らかにすることである。そして、行う必要のない仕事をやめることである。");
+		sentenceStringList.add("未来を語る前に、今の現実を知らなければならない。現実からしかスタートできないからである。");
+		sentenceStringList.add(
+				"未来に何かを起こすには、勇気を必要とする。努力を必要とする。信念を必要とする。決定のためには、いろいろな案がなくてはならない。ただし、可・否の二案だけでは不足だ。決定しないという決定もあることを忘れない方がいい。反対論がない場合には結論を出してはならない。勇気と勉強に不足があれば反対論は出ない。");
+		sentenceStringList.add("本物の変化とは人が行うことであり、流行とは人が言うことである。");
+		sentenceStringList.add(
+				"数百年後、歴史家が長い視点から今日の時代をとらえた場合、最も重要な出来事はテクノロジーでもインターネットでも電子商取引でもないだろう。人間がおかれた状況の史上例を見ない変動こそ、最大の出来事である。今日多くの人々が選択する自由を手にしており、その人数は急激に増えつつある。これは歴 史上まったくなかったことだ。それは同じく史上初めて人々が自分自身をマネジメントしなければならないことでもある。しかし、社会の側ではこの事態に対応 する準備が全然できていない。");
+		sentenceStringList.add("専門性の進化と、異分野との接触のバランスを実現しなければならない。");
+		sentenceStringList.add("学校は長くいればいるほど、自分で意志決定を行う機会が少なくなる。");
+		sentenceStringList.add("知識労働とサービス労働は、何を行うかどのような技能によって行うかによって生産性が左右される。");
+		sentenceStringList.add("成果をあげる人たちは気性や能力、職種や仕事のやり方、性格や知識や関心において千差万別である。共通点は、なすべきことを成し遂げる能力をもっていることだけである。");
+		sentenceStringList.add("未来を予測する最良の方法は、未来を創ることだ。未来を予測しようとすると罠にはまる。");
+		sentenceStringList.add("たいていの経営者は、その時間の大半を過ぎ去った「きのう」の諸問題に費やしている。");
+		sentenceStringList.add("自らが自らに求めるものが少なければ成長しない。だが多くを求めるならば、何も成長しない者と同じ程度の努力で、巨人にまで成長する。");
+		sentenceStringList.add("なにかが成し遂げられるときには、かならずその使命のほかには何も考えられない偏執狂的な人間がいるものだ。");
+		sentenceStringList.add(
+				"学ぶことのできない資質、習得することができず、もともと持っていなければならない資質がある。他から得ることができず、どうしても自ら身につけていなければならない資質がある。才能ではなく真摯さである。");
+		sentenceStringList.add("ビジネスの目的の正しい定義はただひとつ。顧客を作り出すことである。");
+		sentenceStringList.add("できることから始めるのではなく、正しいことから始めるのです。");
+		sentenceStringList.add("ビジネスには二つの機能しかない。マーケティングとイノベーションである。");
+		sentenceStringList.add("計画とは未来に関する現在の決定である。");
+		sentenceStringList.add("生産性とは機械や道具や手法の問題ではなく、姿勢の問題である。換言するならば、生産性を決定するものは、働く人たちの動機である。");
+		sentenceStringList.add("成功した企業は、きまって誰かがかつて勇気ある決断をした。");
+		sentenceStringList.add("将来についてわかっている唯一のことは、今とは違うということだ。");
+		sentenceStringList.add("時間は最も乏しい資源であり、それが管理できなければ他の何事も管理することはできない。");
+		sentenceStringList.add("マネジメントは物事を正しく行う事で、リーダーシップとは正しい事をすることである。");
+		sentenceStringList.add("コンサルタントとしての私の最大の長所は無知になりいくつかの質問をすることである。");
+		sentenceStringList.add("コミュニケーションで最も大切なことは、相手の言わない本音の部分を聞くことである。");
+		sentenceStringList.add("経済的発展において最大の資源となるのは人間である。経済を発展させるのは、人間であって、資本や原料ではない。");
+		sentenceStringList.add("効率とは物事を正しく行うことで、有効性とは正しいことを行うことである。");
+		sentenceStringList.add("管理者は、高潔な品性をもってこそ、指導力を発揮し、多くの人の模範となりうる。");
+		sentenceStringList
+				.add("企業はなによりも”アイデア”であり、アイデアを生むことのできるのは個々の人間だけである。勇を鼓して自ら思考し、”既成観念”にあえてそむける人なくして、その企業の成長と繁栄は望めない。");
+		sentenceStringList.add("２１世紀の最大の不安定化要因は人口の構造変化である。ただし、先進国における最大の問題は高齢化ではない。少子化のほうである。");
+		sentenceStringList.add("全力を注がなければ、単に約束と希望があるだけで、計画はない。");
+		sentenceStringList.add("効率とは、現在既に行われている事をより洗練させることである。");
+		sentenceStringList.add("学ぶという事は一生続く、変化に遅れないようについていくためのプロセスだという事実を、私たちは今では受け入れている。そして、最も緊急な課題は人々に学び方を教えることである。");
+		sentenceStringList.add("自らに求めるものが少なければ、成長しない。多くを自らに求めるなら、成長しない者と同程度の努力で巨人に成長できる");
+		sentenceStringList.add("効果的な経営者の共通点は、ひたすらひとつの作業に集中する点にある。彼らは最も大切なことのみを行い。そのことが完了するまで、他の事に目を向けないという集中力を持っている。");
+		sentenceStringList
+				.add("上司は部下の仕事に責任を持つ。部下のキャリアを左右する。したがって、強みを生かすことは、成果をあげるための必要条件であるだけでなく、倫理的な至上命令、権力と地位に伴う責任である。");
+		sentenceStringList.add(
+				"会計学者や経営者は「純利益」という言葉を使うが、企業経営ではそんな言葉を使ってはいけない。「フューチャー・コスト（未来費用）」と呼ぶべきだ。企業というのは、リスクを負うために失敗することもある、そのときのために未来のコストを留保してあるのであって、利益の蓄積ではないのだ。");
+		sentenceStringList.add("成果をあげるには、自由に使える時間を大きくまとめる必要がある。大きくまとまった時間が必要なこと、小さな時間は役に立たないことを認識しなければならない。");
+		sentenceStringList
+				.add("知的労働者が成果をあげるための第一歩は、実際の時間の使い方を記録することである。時間を記録する、整理する、まとめるの３段階にわたるプロセスが、成果をあげるための時間管理の基本となる。");
+		sentenceStringList.add(
+				"行動と動作を混同してはいけない。製品、サービス、プロセスが成果を生まなくなり、その廃棄が必要になると、あらゆる組織が組織改革に走る。もちろん、組織改革が必要なことは多い。だがそれは、何をいかに行うかという問題に取り組んだ後に行うことである。組織改革だけでは、単なる動作であって、意味ある行動の代わりとはならない。");
+		sentenceStringList.add(
+				"真のイノベーションと新奇さを混同してはいけない。イノベーションは価値を生む。新奇さは面白いだけである。ところが組織の多くが毎日同じことを行い、毎日同じものをつくることに飽きたというだけで、新奇なものに取り組んでしまう。");
+		sentenceStringList.add(
+				"現実とつじつまが合わないイノベーションを手掛けてはいけない。そのようなイノベーションが実を結ぶことは希である。たんにその新奇さのゆえに、魅力的に見えることが少なくない。しかし、それらの多くはたとえ失敗しなくとも、莫大な資金と時間を要する。");
+		sentenceStringList.add("イノベーションを成功するためには、小さくスタートしなければならない。大がかりであってはならない。具体的なことだけに絞らなければならない。");
+		sentenceStringList.add("イノベーションとは、論理的な分析であるとともに知覚的な認識である。");
+		sentenceStringList.add(
+				"イノベーションを行うためには、機会を分析することから始めなければならない。分析すべき７つの機会とは、（１）予期せぬこと（２）ギャップ（３）ニーズ（４）構造の変化（５）人口の変化（６）認識の変化（７）新知識の獲得である。");
+		sentenceStringList.add("成果をあげるための秘訣をひとつだけ挙げるならば、それは集中である。成果をあげる人は、最も重要なことから始め、一度にひとつのことしかしない。");
+		sentenceStringList.add(
+				"集中するための第一の原則は、もはや生産的でなくなった過去のものを捨てることである。そのためには、自らの仕事と部下の仕事を定期的に見直し、「まだ行っていなかったとして、いまこれに手を付けるか」と問わなければならない。");
+		sentenceStringList.add("集中が必要なのは、仕事の本質と人間の本質による。いくつかの理由はすでに明らかである。貢献を行うための時間よりも、行わなければならない貢献の方が多いからである。");
+		sentenceStringList.add("成果をあげる者は、時間が制約要因であることを知っている。あらゆるプロセスにおいて、成果の限界を規定するものは、最も欠乏した資源である。それが時間である。");
+		sentenceStringList
+				.add("時間こそ真に普遍的な制約条件である。あらゆる仕事が時間の中で行われ、時間を費やす。それなのに、ほとんどの人が、この代替できない必要不可欠な資源を重要ではないもののように扱う。");
+		sentenceStringList.add("リーダーを信頼するということは、リーダーを好きになることではない。常に同意できることでもない。リーダーの言うことが真意であると確信できることである。");
+		sentenceStringList.add("自社のもっている、また引き継いできたコア・コンピタンス（中核的競争能力）、独自の専門性を尊重し、それを十二分に活かしていくように人の知恵を結集すべきだ。");
+		sentenceStringList.add("企業の目的は顧客創造である以上、企業の基本的な機能はマーケティングとイノベーションの２つしかなく、そのほかはすべてコストだ。");
+		sentenceStringList.add("もしマーケティングが完全に行われていたら、販売努力は不要だ。");
+		sentenceStringList.add(
+				"マーケティングは事業全体を完全に包含する。それは最終成果の観点、つまり顧客の視点から見たビジネスすべてである。それゆえにマーケティングに対する配慮と責任は企業全体に浸透していなければならない。");
+		sentenceStringList.add("本物の変化とは人が行うことであり、一時の変化とは人が言うことである。");
+		sentenceStringList.add("成功への道は、自らの手で未来をつくることによってのみ開ける。");
+		sentenceStringList.add("成し遂げたいことに必要な条件を、明確に把握すればするほど、達成される確率は高まっていく。");
+		sentenceStringList.add("経営者がかならず身につけておかなければいけない、大事な要素がひとつだけある。それは”品性”である。");
+		sentenceStringList.add("成果をあげる人の共通点は、行わなければいけない事を、しっかり行っているというだけである。");
+		sentenceStringList.add("以前にも成功をおさめたからといって、今度も以前と同様の仕事のやり方をし続ける経営者というものは、必然的に失敗する運命にある。");
+		sentenceStringList.add("成果とは常に成功することではない。そこには、間違いや失敗を許す余地がなければならない。");
+		sentenceStringList.add("判断の代わりに公式を使うことは、つねに間違いである。");
+		sentenceStringList.add("「出来ないこと」ではなく、「出来ること」に集中しなさい。");
+		sentenceStringList.add("仕事のやり方を変えるのではなく、仕事の意味を考えなさい。");
+		sentenceStringList.add("まず、やりたいを決め、次に何に集中すべきかを決めなさい。");
+		sentenceStringList.add("基本と原則に則っていないものは、かならず破綻する。");
+		sentenceStringList.add("失敗者が何をして失敗したかよりも、成功者が何をして成功したかを学びなさい。");
+		sentenceStringList.add("素晴らしくマネジメントされた組織というものは、日常はむしろ退屈な組織である。");
+		sentenceStringList.add("数千のアイデアを育てて、やっと一つの成果を得ることが出来る。");
+		sentenceStringList.add(
+				"間違いや失敗を犯したことのない者というのは、単に無難なこと、安全なこと、つまらないことしか、やってこなかっただけである。逆に優れている者ほど、数えきれない間違いを犯すものであり、これは常に新しいことに挑戦している証拠である。");
+		sentenceStringList.add("人間は、自らが望む未来の大きさに合わせて、成長する。");
+		sentenceStringList.add("何かを成し遂げるためには、そのことをしか考えられないという“狂い”が必要となる。");
+		sentenceStringList.add("全力を注がなければ、あなたに未来は無い。");
+		sentenceStringList
+				.add("成功する人に共通しているのは、ひたすらひとつの事に集中しているという点である。彼らは自分にとって一番重要なことだけに力を集中し、それが終わるまで他の事には一切手を出さない。");
+		sentenceStringList.add("生産性の本質を測る真の基準は、「量」ではなくて、「質」である。");
+		sentenceStringList.add("成功する企業というのは、「問題」ではなく、「チャンス」に目を向けている。");
+		sentenceStringList.add("すべての偉大な成功は、地味で面倒な事の積み重ねの上に成り立っている。");
+		sentenceStringList.add("複雑なものというのは、大抵うまくいかない。");
+		sentenceStringList.add("事業とは何かを問われると、たいていの企業人は利益を得るための組織と答える。たいていの経済学者も同じように答える。この答えは間違いなだけではなく、的外れである。");
+		sentenceStringList.add("優れた者ほど、間違いは多い。それだけ新しいことを試みるからである。");
+		sentenceStringList.add(
+				"社会や経済は、いかなる企業をも一夜にして消滅させる。企業は社会や経済の許しがあって存在しているのであり、有用かつ生産的な仕事をしていると見なされるかぎりにおいて、存続を許されているに過ぎない。");
+		sentenceStringList.add("コミュニケーションで一番大切なことは、相手が口にしていないコトバを聞き分ける力である。");
+		sentenceStringList.add("世界一になりなさい。さもなければ撤退しなさい。");
+		sentenceStringList.add("組織のマネジメントとは、凄い人材を入れることや改新的なサービスを導入する事のように思われているが一番重要なのは、今ある人材と資産で何ができるかを考えることである。");
+		sentenceStringList.add("成功する人間に必要な、生まれつきの能力などありはしない。ただ、あなたが成し遂げたいことに、必要な能力だけを身につければいいのだ。");
+		sentenceStringList.add("どんな人でも努力すれば、“それなりの能力”は身につけることが出来る。そして、この世で成功するためには、“それなりの能力”があれば十分なのである。");
+		sentenceStringList.add("砂漠では、教養など何の役にも立たない。生きる技術を持っているかどうかが生き残れるかどうかを分ける。厳しいビジネスの世界も同じである。");
+		sentenceStringList.add("これまでの実績など捨てなさい。自分の強みを過信した者は、生き残れません。");
+		sentenceStringList.add("生産性を上げる一番簡単な方法は、今、成果が一番出ている仕事に集中し成果が出ていない仕事からは、撤退してしまうことである。");
+		sentenceStringList.add("重要なことは、明日何をするかではなく、今日、何をしたかである。");
+		sentenceStringList.add("マーケティングの理想は、販売を不要にすることである。つまり、製品がおのずから売れるようにすることである。");
+		sentenceStringList.add(
+				"私が１３才のとき、宗教の先生が生徒一人ひとりに、「何によって人に憧れたいかね」と聞いた。誰も答えられなかった。先生は笑いながらこう言った。「いま答えられると思わない。でも５０才になって答えられないと問題だよ。人生を無駄に過ごしたことになるからね。」");
+		sentenceStringList.add("寝床につくときに、翌朝起きることを楽しみにしている人間は、幸福である。");
+		sentenceStringList
+				.add("不得手なことの改善にあまり時間を使ってはならない。自らの強みに集中すべきである。無能を並みの水準にするには、一流を超一流にするよりも、はるかに多くのエネルギーと努力を必要とする。");
+		sentenceStringList.add("２１世紀に重要視される唯一のスキルは、新しいものを学ぶスキルである。それ以外はすべて時間と共にすたれてゆく。");
+		sentenceStringList.add(
+				"いまさら、自分を変えようとしてはならない。うまくいくわけがない。自分の得意とする仕事のやり方を向上させることに、力を入れるべきである。人の卓越性は、ひとつの分野、あるいはわずかの分野において、実現されるのみである。");
+		sentenceStringList.add("教養ある人間とは、勉強し続けなければならないことを自覚している人間のことである。");
+		sentenceStringList
+				.add("あらゆる活動について「もし今日これを行っていなかったとして、改めて行うか」を問わなければならない。答えが否であるなら、「それでは、いかにして一日も早くやめるか」を問わなければならない。");
+		sentenceStringList.add("人材は、企業規模とは無関係である");
+		sentenceStringList.add("創造性開発を叫ぶだけでは、誠に空しい");
+		sentenceStringList.add("業績は、企業の内部には生じない");
+		sentenceStringList.add("利益が出るのは正常の状態ではない");
+		sentenceStringList.add("有能な経営者は、ほかの人々の仕事を管理するのは、一見真実だが、これはまったくの俗説なのである");
+		sentenceStringList.add("この世界では何らかの仕事ができる人間はむしろ稀である");
+		sentenceStringList.add("万能選手はなかなかいない");
+		sentenceStringList.add("経営者の仕事は、ほかの人々を管理することから始まるものではない");
+		sentenceStringList.add("効率性には3つの領域がある");
+		sentenceStringList.add("経営者に必要なのはキャラクターの高潔性だ");
+		sentenceStringList.add("経営は秘訣や秘伝ではない");
+		sentenceStringList.add("過去から脱却せよ");
+		sentenceStringList.add("我々が行動可能なのは現在であり、また未来のみである");
+		sentenceStringList.add("経営者と知識労働者にとっての唯一のツールは情報である");
+		sentenceStringList.add("企業にとって何よりも大事なのは、新しい生きたアイデアをどう生むかだ");
+		sentenceStringList.add("イノベーションとアントルプルヌールシップは、マネジメントという規律の中枢である");
 
-		sentenceStringList.add("Listening is not a skill; it is a discipline.");
-		sentenceStringList.add(
-				"Never ask who's right. Start out by asking what is right. And you find that out by listening to dissenting, disagreeing opinions. ");
+		sentenceStringList.add("CEOは、組織の中において権力を中心ではなく、責任を中心に考えるべきである");
+		sentenceStringList.add("問題の明確化としっかりした定義づけができ、それによって観察可能なすべての事実を網羅しうるまでは、そうした問題の定義づけは不完全であったり、間違ったものになる");
+		sentenceStringList.add("神々はすべてを見通しているから、どんなに難しくても、自分の仕事は完璧を期せよ");
+		sentenceStringList.add("効率的な企業は、問題中心主義でなく、むしろ機会中心主義である");
+		sentenceStringList.add("日本人の強みは、組織の構成員として、一種の家族意識を有することにある");
+		sentenceStringList.add("軍隊の指揮者は、現場からのリポートに依存することなく、自分で現場へ出かけて行き、自分の目でみる");
 
-		sentenceStringList
-				.add("The entrepreneur always searches for change, responds to it, and exploits it as an opportunity.");
+		sentenceStringList.add("激化する国際社会。勝敗のカギは、経営者の企業家精神の確立とその発揮にある");
+		sentenceStringList.add("コストも社会現象の1つである。企業経営の大きな成果は、少数の社員がもたらす");
+		sentenceStringList.add("科学的経営経済学などは存在しない。業績を上げる方法は、実は誰でもが承知している");
+		sentenceStringList.add("経営者が第1になすべき、また絶えず行うべき職責は、現存の資源を用いて最高の成果をあげることである");
 
-		sentenceStringList.add("Whenever you see a successful business, someone once made a courageous decision.");
+		sentenceStringList.add("世の一般的な勧めなどは無視して、己の仕事を絞る。それがトップの[主要活動領域]である。");
+		sentenceStringList.add("自分が得意だと思っていることに、溺れるな。物事の\"本質\"を鋭く透察する心を持て。");
+		sentenceStringList.add("金融・財務面の要請は、企業の成長速度の4倍速く走る。だからこそ、早めに手を打つことが必要だ");
+		sentenceStringList.add("やたらに危機感を煽ったり、人を無理矢理、牛馬のように駆り立てるマネジメント方式ではだめだ");
+		sentenceStringList.add("階層をなす組織の危険は、上司の言うことを部下がそのまま実行することだ");
+		sentenceStringList.add("最初はダメでも何度でもやり直せという態度は誤りである");
+		sentenceStringList.add("リーダーは尊敬されるが、必ずしも好かれるとは限らない");
+		sentenceStringList.add("半年振りに会ったドラッカー氏は語る－。“Eコマースの将来は、決してすべてがバラ色というわけではない");
+		sentenceStringList.add("あらゆるビジネス誌紙が取り上げる\"トップと現場との距離\"の問題。ドラッカー氏が語ると…");
+		sentenceStringList.add("市場に関する報告書など信頼してはいけない。マーケットはトップ自身の目と足で確かめよ");
+		sentenceStringList.add("傲るな｡企業は､社会に存在させていただいているものだ");
+		sentenceStringList.add("直属以外にも上司はいる｡そして､上司とて､斬られりゃ痛い生身の人間ということを忘れないこと");
+		sentenceStringList.add("新しく生まれつつある知識労働者は､旧来の企業が主人で従業員は召使であるという考え方を今や塗り変えつつある");
+		sentenceStringList.add("上司を過大評価することはあってもいいが､決して過小評価するな");
+		sentenceStringList.add("道楽息子に家業を継がせるな");
+		sentenceStringList.add("経営者の職務とは､働くことそのものである｡それも極めて困難で､大変な､リスクの多い仕事である");
+		sentenceStringList.add("企業家の世界は物理的な世界ではない｡むしろ､価値の世界である");
+		sentenceStringList.add("企業は何よりも″アイデア″であり､″アイデア″を生むことができるのは個々の人間だけである");
+		sentenceStringList.add("経営管理の96％は、ルーティーン的な定例反復業務であることを、ゆめ忘れてはならない");
+		sentenceStringList.add("生産性の本質を測る真の基準は量ではなくて、質である");
+		sentenceStringList.add("知識労働者はボランティアとして取り扱わねばならない");
+		sentenceStringList.add("最も重要なのは、タスクに目を配ることであって、自分自身についてではない");
+		sentenceStringList.add("リーダーの主要な課題は、いかにして各種のバランスを上手にとるかである");
+		sentenceStringList.add("すべての文明、あるいは国の中で、日本だけは、目よりも、心で接することによって理解できる国である");
+		sentenceStringList.add("もし私が会社の社長だったら、一番恐れることは、大会社とその経営者が自分では露ほども不法なことをしていると考えず、道徳観念がルーズで無神経に行動することである");
+		sentenceStringList.add("ｅラーニングの成否はその組立て方いかんにかかっている");
+		sentenceStringList.add("『研究者に求めることが少なければ少ないほど、成果もあがる』と考えるのは、研究開発をめぐる大きな迷信にしかすぎない");
+		sentenceStringList.add("ハイテクは明日の担い手であり、今日の担い手ではない");
+		sentenceStringList.add("知識労働者がすべて同質のものだなどと考えたら、大間違いである");
+		sentenceStringList.add("伝統的な労働力体制の下にあっては、働く人々がシステムに仕えたが、知識労働力体制の下では、システムこそが働く人々に仕えなければならない");
+		sentenceStringList.add(
+				"明日のエグゼクティブが学ぶべき3つの重要な事柄は、①自分で自分の面倒がみられること、②下（部下）のマネジメントではなくて、上（上司）のマネジメントをすること、③そして、経営の基本を広く着実に身につけることである");
+		sentenceStringList.add("これからの乱世で組織が生き残って成功するには、自らを変革の促進者（エージェント）に変えていかねばならない");
+		sentenceStringList.add("蛙の卵が池からなくならないのと同様に、アイデアは決して枯渇することはない。");
 
-		sentenceStringList.add(
-				"More business decisions occur over lunch and dinner than at any other time, yet no MBA courses are given on the subject.");
-		sentenceStringList.add("Making good decisions is a crucial skill at every level.");
-		sentenceStringList.add(
-				"The 1st question the effective decision-maker asks is: 'Is this a generic situation or an exception?");
-		sentenceStringList.add(
-				"Checking the results of a decision against its expectations shows executives what their strengths are, where they need to improve, and where they lack knowledge or information.");
-		sentenceStringList.add("Once the facts are clear the decisions jump out at you.");
-		sentenceStringList.add(
-				"No decision has been made unless carrying it out in specific steps has become someone's work assignment and responsibility.");
-		sentenceStringList.add(
-				"Strategic planning is the continuous process of making present entrepreneurial (risk-taking) decisions systematically and with the greatest knowledge of their futurity; organizing systematically the efforts needed to carry out these decisions; and measuring the results of these decisions against the expectations through organized, systematic feedback.");
-		sentenceStringList.add(
-				"The most common source of mistakes in management decisions is the emphasis on finding the right answer rather than the right question.");
-		sentenceStringList.add("Erroneous assumptions can be disastrous.");
-		sentenceStringList.add(
-				"Long range planning does not deal with future decisions, but with the future of present decisions.");
-		sentenceStringList.add(
-				"Unless a decision has degenerated into work, it is not a decision; it is at best a good intention.");
-		sentenceStringList.add(
-				"In areas where they are simply incompetent, smart executives don’t make decisions or take actions. They delegate.");
-		sentenceStringList.add(
-				"The largest 100 corporations hold 25 percent of the worldwide productive assets, which in turn control 75 percent of international trade and 98 percent of all foreign direct investment.The multinational corporation...puts the economic decision beyond the effective reach of the political process and its decision-makers, national governments.");
-		sentenceStringList.add(
-				"Most discussions of decision making assume that only senior executives make decisions or that only senior executives' decisions matter. This is a dangerous mistake.");
-		sentenceStringList.add(
-				"Teamwork is neither \"good\" nor \"desirable.\" It is a fact. Wherever people work together or play together they do so as a team. Which team to use for what purpose is a crucial, difficult and risky decision that is even harder to unmake. Managements have yet to learn how to make it.");
-		sentenceStringList
-				.add("One has to make a decision when a condition is likely to degenerate if nothing is done.\n");
-		sentenceStringList.add(
-				"Executives owe it to the organization and to their fellow workers not to tolerate nonperforming individuals in important jobs.");
-		sentenceStringList.add(
-				"Some of the best business and nonprofit CEOs I've worked with over a sixty-five-year consulting career were not stereotypical leaders. They were all over the map in terms of their personalities, attitudes, values, strengths, and weaknesses.");
-		sentenceStringList.add(
-				"Political freedom is neither easy nor automatic, neither pleasant nor secure. It is the responsibility of the individual for the decisions of society as if they were his own decisions-as in moral truth and accountability they are.");
-		sentenceStringList.add(
-				"The most important decisions in organizations are people decisions, and yet only the military, and only recently, has begun to ask, \"If we assign this general to lead this base, what do we expect him to accomplish?\"");
-		sentenceStringList.add(
-				"The question that faces the strategic decision maker is not what his organisation should do tomorrow. It is, what do we have to do today to be ready for an uncertain tomorrow?");
-		sentenceStringList.add("Decisions exist only in the present.");
-		sentenceStringList.add(
-				"Important decisions are risky. They should be controversial. Acclamation means that nobody has done the homework.");
-		sentenceStringList
-				.add("The entrepreneur always searches for change, responds to it, and exploits it as an opportunity.");
-		sentenceStringList.add(
-				"Follow effective action with quiet reflection. From the quiet reflection will come even more effective action.");
-		sentenceStringList.add("The most important thing in communication is hearing what isn't said.");
-		sentenceStringList.add("Management is doing things right; leadership is doing the right things.");
-		sentenceStringList.add("Whenever you see a successful business, someone once made a courageous decision.");
-		sentenceStringList.add(
-				"Effective leadership is not about making speeches or being liked; leadership is defined by results not attributes.");
-		sentenceStringList.add(
-				"Management by objective works - if you know the objectives. Ninety percent of the time you don't.");
-		sentenceStringList.add("Entrepreneurship is neither a science nor an art. It is a practice.");
-		sentenceStringList.add(
-				"People who don't take risks generally make about two big mistakes a year. People who do take risks generally make about two big mistakes a year.");
-		sentenceStringList.add("Do first things first, and second things not at all.");
-		sentenceStringList
-				.add("There is nothing so useless as doing efficiently that which should not be done at all.");
-		sentenceStringList.add("No executive has ever suffered because his subordinates were strong and effective.");
-		sentenceStringList.add("Unless commitment is made, there are only promises and hopes... but no plans.");
-		sentenceStringList.add("Knowledge has to be improved, challenged, and increased constantly, or it vanishes.");
-		sentenceStringList.add(
-				"Innovation is the specific instrument of entrepreneurship. The act that endows resources with a new capacity to create wealth.");
-		sentenceStringList.add("No one learns as much about a subject as one who is forced to teach it.");
-		sentenceStringList.add("The best way to predict the future is to create it.");
-		sentenceStringList.add("It's more important to do the right thing than to do things right.");
-		sentenceStringList.add(
-				"Quality in a service or product is not what you put into it. It is what the client or customer gets out of it.");
-		sentenceStringList.add(
-				"There is the risk you cannot afford to take, and there is the risk you cannot afford not to take.");
-		sentenceStringList.add("The most effective way to manage change is to create it.");
-		sentenceStringList.add(
-				"The single most important thing to remember about any enterprise is that there are no results inside its walls. The result of a business is a satisfied customer.");
-		sentenceStringList.add(
-				"Long range planning does not deal with future decisions, but with the future of present decisions.");
-		sentenceStringList.add(
-				"The only things that evolve by themselves in an organization are disorder, friction and malperformance.");
-		sentenceStringList.add(
-				"The talk you hear about adapting to change is not only stupid, it's dangerous. The only way you can manage change is to create it.");
-		sentenceStringList.add("Management is doing things right; leadership is doing the right things.");
-		sentenceStringList.add(
-				"Management by objective works - if you know the objectives. Ninety percent of the time you don't.");
-		sentenceStringList.add(
-				"People who don't take risks generally make about two big mistakes a year. People who do take risks generally make about two big mistakes a year.");
-		sentenceStringList
-				.add("There is nothing so useless as doing efficiently that which should not be done at all.");
-		sentenceStringList.add("The productivity of work is not the responsibility of the worker but of the manager.");
-		sentenceStringList.add("Time is the scarcest resource and unless it is managed nothing else can be managed.");
-		sentenceStringList.add("The best way to predict the future is to create it.");
-		sentenceStringList.add(
-				"Most of what we call management consists of making it difficult for people to get their work done.");
-		sentenceStringList.add(
-				"I have been saying for many years that we are using the word 'guru' only because 'charlatan' is too long to fit into a headline.");
-		sentenceStringList.add(
-				"Innovation requires us to systematically identify changes that have already occurred in a business - in demographics, in values, in technology or science - and then to look at them as opportunities. It also requires something that is most difficult for existing companies to do: to abandon rather than defend yesterday.");
-		sentenceStringList.add(
-				"One cannot buy, rent or hire more time. The supply of time is totally inelastic. No matter how high the demand, the supply will not go up. There is no price for it. Time is totally perishable and cannot be stored. Yesterday's time is gone forever, and will never come back. Time is always in short supply. There is no substitute for time. Everything requires time. All work takes place in, and uses up time. Yet most people take for granted this unique, irreplaceable and necessary resource.");
-		sentenceStringList.add(
-				"Checking the results of a decision against its expectations shows executives what their strengths are, where they need to improve, and where they lack knowledge or information.");
-		sentenceStringList.add(
-				"what's absolutely unforgivable is the financial benefit top management people get for laying off people. There is no excuse for it. No justification. This is morally and socially unforgivable, and we will pay a heavy price for it.");
-		sentenceStringList.add("You can't manage knowledge.Knowledge is between two ears and only between two ears.");
-		sentenceStringList.add(
-				"The most common source of mistakes in management decisions is the emphasis on finding the right answer rather than the right question.");
-		sentenceStringList.add("A manager is responsible for the application and performance of knowledge.");
-		sentenceStringList.add(
-				"Strategic management is not a box of tricks or a bundle of techniques. It is analytical thinking and commitment of resources to action. But quantification alone is not planning. Some of the most important issues in strategic management cannot be quantified at all.");
-		sentenceStringList.add(
-				"The great challenge to management today is to make productive the tremendous new resource, the knowledge worker. This, rather than the productivity of the manual worker, is the key to economic growth and economic performance in today's society.");
-		sentenceStringList.add(
-				"Management means, in the last analysis, the substitution of thought for brawn and muscle, of knowledge for folkways and superstition, and of cooperation for force. It means the substitution of responsibility for obedience to rank, and of authority of performance for the authority of rank.");
-		sentenceStringList.add(
-				"There's no such thing as knowledge management; there are only knowledgeable people. Information only becomes knowledge in the hands of someone who knows what to do with it.");
-		sentenceStringList.add("If you want to improve how you manage time - stop doing what doesn't need to be done!");
-		sentenceStringList.add("Management is not being brilliant. Management is being conscientious.");
-		sentenceStringList.add(
-				"The most important, and indeed the truly unique, contribution of management in the 20th century was the fifty-fold increase in the productivity of the MANUAL WORKER in manufacturing. The most important contribution management needs to make in the 21st century is similarly to increase the productivity of KNOWLEDGE WORK and the KNOWLEDGE WORKER.");
-		sentenceStringList.add(
-				"In the knowledge economy everyone is a volunteer, but we have trained our managers to manage conscripts.");
-		sentenceStringList.add(
-				"(Waste = Loss): The first rule of business is to survive and the guiding principle of business economics is not the maximisation of profit, it is the avoidance of loss");
+		sentenceStringList.add("世界はグローバル化と同時に、反面、次第に反対の方向、すなわち、トライバル化（部族重視）やローカル化（地域重視）の度合いも深めてきています。");
+		sentenceStringList.add("企業経営のエッセンスは、何かに『卓越』することと、『決断』することである。");
+		sentenceStringList.add("今日、売れている製品が明日も売れるという保証はない。企業は、絶えず明日を担う製品をつくり出さねばならない");
+		sentenceStringList.add("多角化する際には“気質”（テンペラント）も勘定に入れておけ");
+		sentenceStringList.add("有能さは修得できる");
 
-		/****************************************************************************************/
-		
-		sentenceStringList.add("Management is doing things right; leadership is doing the right things.");
-		sentenceStringList.add("Whenever you see a successful business, someone once made a courageous decision.");
-		sentenceStringList.add(
-				"More business decisions occur over lunch and dinner than at any other time, yet no MBA courses are given on the subject.");
-		sentenceStringList.add(
-				"Management by objective works - if you know the objectives. Ninety percent of the time you don't.");
-		sentenceStringList.add("Making good decisions is a crucial skill at every level.");
-		sentenceStringList.add("What gets measured gets managed.");
-		sentenceStringList.add("We know nothing about motivation. All we can do is write books about it.");
-		sentenceStringList.add(
-				"The leaders who work most effectively, it seems to me, never say \"I.\" And that's not because they have trained themselves not to say \"I.\" They don't think \"I.\" They think \"we\"; they think \"team.\" They understand their job to be to make the team function. They accept responsibility and don't sidestep it, but \"we\" gets the credit. This is what creates trust, what enables you to get the task done.");
-		sentenceStringList.add("If you want something new, you have to stop doing something old");
-		sentenceStringList
-				.add("There is nothing so useless as doing efficiently that which should not be done at all.");
-		sentenceStringList.add("No executive has ever suffered because his subordinates were strong and effective.");
-		sentenceStringList.add("The productivity of work is not the responsibility of the worker but of the manager.");
-		sentenceStringList.add("Time is the scarcest resource and unless it is managed nothing else can be managed.");
-		sentenceStringList.add(
-				"Meetings are by definition a concession to a deficient organization. For one either meets or one works. One cannot do both at the same time.");
-		sentenceStringList
-				.add("Marketing is not a function, it is the whole business seen from the customer's point of view.");
-		sentenceStringList.add(
-				"Trying to predict the future is like trying to drive down a country road at night with no lights while looking out the back window.");
-		sentenceStringList.add("Doing the right thing is more important than doing the thing right.");
-		sentenceStringList.add(
-				"Most of what we call management consists of making it difficult for people to get their work done.");
-		sentenceStringList.add(
-				"The success and ultimately the survival of every business, large or small, depends in the last analysis on its ability to develop people. This ability is not measured by any of our conventional yardsticks of economic success; yet, is the final measurement.");
-		sentenceStringList.add(
-				"The fewer data needed, the better the information. And an overload of information, that is, anything much beyond what is truly needed, leads to information blackout. It does not enrich, but impoverishes.");
-		sentenceStringList.add("The purpose of a business is to create a customer.");
-		sentenceStringList.add("Business has only two basic functions - marketing and innovation.");
-		sentenceStringList.add("Profitability is the sovereign criterion of the enterprise.");
-		sentenceStringList.add(
-				"The new information technology... Internet and e-mail... have practically eliminated the physical costs of communications.");
-		sentenceStringList.add(
-				"People who don't take risks generally make about two big mistakes a year. People who do take risks generally make about two big mistakes a year.");
-		sentenceStringList.add("If you want something new, you have to stop doing something old");
-		sentenceStringList.add(
-				"Innovation is the specific instrument of entrepreneurship. The act that endows resources with a new capacity to create wealth.");
-		sentenceStringList.add("The best way to predict the future is to create it.");
-		sentenceStringList.add(
-				"Since we live in an age of innovation, a practical education must prepare a man for work that does not yet exist and cannot yet be clearly defined.");
-		sentenceStringList.add("Marketing and innovation make money. Everything else is a cost.");
-		sentenceStringList
-				.add("Innovation opportunities do not come with the tempest but with the rustling of the breeze.");
-		sentenceStringList.add(
-				"There are only two things in a business that make money - innovation and marketing, everything else is cost.");
-		sentenceStringList.add(
-				"Because its purpose is to create a customer, the business has two and only two functions: Marketing and Innovation. Marketing and Innovation produce results. All the rest are costs.");
-		sentenceStringList.add(
-				"Knowledge is the source of Wealth. Applied to tasks we already know, it becomes Productivity. Applied to tasks that are new, it becomes Innovation...");
-		sentenceStringList.add(
-				"Innovation requires us to systematically identify changes that have already occurred in a business - in demographics, in values, in technology or science - and then to look at them as opportunities. It also requires something that is most difficult for existing companies to do: to abandon rather than defend yesterday.");
-		sentenceStringList.add("Business has only two basic functions - marketing and innovation.");
-		sentenceStringList.add("Marketing and innovation produce results; all the rest are costs.");
-		sentenceStringList.add(
-				"Innovation is the specific tool of entrepreneurs, the means by which they exploit change as an opportunity for a different business or a different service. It is capable of being presented as a discipline, capable of being learned, capable of being practiced. Entrepreneurs need to search purposefully for the sources of innovation, the changes and their symptoms that indicate opportunities for successful innovation. And they need to know and to apply the principles of successful innovation.");
-		sentenceStringList.add(
-				"What we need is an entrepreneurial society in which innovation and entrepreneurship are normal, steady and continuous.");
-		sentenceStringList.add(
-				"Innovation is the specific tool of entrepreneurs, the means by which they exploit change as an opportunity for a different business or a different service.");
+		sentenceStringList.add("知識は、本の中にはない");
+		sentenceStringList.add("最も重要なことから始めよ");
+		sentenceStringList.add("デシジョン・メーキングにおいて、2+2=4という具合に、ドンピシャ“正しい答え”が出てくるものはデンションとはいわない");
 
+		sentenceStringList.add("必要は発明の母ではないが、助産婦である");
+		sentenceStringList.add("知識労働者自身に上下はない");
+		sentenceStringList.add("人間というものは、非常に時間を消費するものであり、そして大部分の人間は時間の浪費家でもある");
 		sentenceStringList.add(
-				"Thus, for those who are willing to go out into the field, to look and to listen, changing demographics is both a highly productive and a highly dependable innovation opportunity.");
+				"中小企業の最高経営責任者は、他の誰にも任せることのできない次の二つの課題に取り組 時間を必ず持てるように、自分の職務を構成しなければならない。その一つは、『外部』向けの時間、すなわち、顧客、市場、技術のための時間であり、もう一つは、『内部（社内）』の基幹要員とじっくり会うための時間である。間違っても机に縛りつけられるようなことがあってはならない");
 
-		sentenceStringList.add(
-				"The enterprise that does not innovate ages and declines. And in a period of rapid change such as the present, the decline will be fast.");
-
-		sentenceStringList.add(
-				"Whenever anything is being accomplished, it is being done, I have learned, by a monomaniac with a mission.");
-		sentenceStringList.add(
-				"No other area offers richer opportunities for successful innovation than the unexpected success.");
-		sentenceStringList.add(
-				"An established company which, in an age demanding innovation, is not able to innovation, is doomed to decline and extinction.\n"
-						+ "");
-		sentenceStringList.add(
-				"Managing innovation will increasingly become a challenge to management, and especially to top management, and a touchstone of its competence.");
-		sentenceStringList
-				.add("Above all, innovation is not invention. It is a term of economics rather than of technology.");
-		sentenceStringList
-				.add("Effective innovations start small. They are not grandiose. They try to do one specific thing.");
-		sentenceStringList.add("Making changes to better appeal to customer is INNOVATION.\n" + "");
-		sentenceStringList.add("The most important thing in communication is hearing what isn't said.\n" + "");
-		sentenceStringList.add("Management is doing things right; leadership is doing the right things.\n" + "");
-		sentenceStringList.add(
-				"Effective leadership is not about making speeches or being liked; leadership is defined by results not attributes.");
-		sentenceStringList.add(
-				"Management by objective works - if you know the objectives. Ninety percent of the time you don't.");
-		sentenceStringList.add("Making good decisions is a crucial skill at every level.\n" + "");
-		sentenceStringList.add(
-				"The leaders who work most effectively, it seems to me, never say \"I.\" And that's not because they have trained themselves not to say \"I.\" They don't think \"I.\" They think \"we\"; they think \"team.\" They understand their job to be to make the team function. They accept responsibility and don't sidestep it, but \"we\" gets the credit. This is what creates trust, what enables you to get the task done.");
-		sentenceStringList.add(
-				"People who don't take risks generally make about two big mistakes a year. People who do take risks generally make about two big mistakes a year.\n"
-						+ "");
-		sentenceStringList.add(
-				"Leadership is lifting a person's vision to high sights, the raising of a person's performance to a higher standard, the building of a personality beyond its normal limitations.");
-		sentenceStringList.add("No executive has ever suffered because his subordinates were strong and effective.");
-		sentenceStringList.add("Rank does not confer privilege or give power. It imposes responsibility.\n" + "");
-		sentenceStringList.add(
-				"Your first and foremost job as a leader is to take charge of your own energy and then help to orchestrate the energy of those around you.");
-		sentenceStringList
-				.add("Every organization must be prepared to abandon everything it does to survive in the future.");
-		sentenceStringList.add("The best way to predict the future is to create it.");
-		sentenceStringList.add(
-				"Most of what we call management consists of making it difficult for people to get their work done.");
-		sentenceStringList.add("The leader sees leadership as responsibility rather than as rank and privilege.");
-		sentenceStringList.add("People learn the most when teaching others.");
-		sentenceStringList.add(
-				"Effective people are not problem minded; they're opportunity-minded. They feed opportunities and starve problems. They think preventively.\n"
-						+ "");
-		sentenceStringList.add("Leadership is defined by results not attributes.\n" + "");
-		sentenceStringList.add(
-				"People in any organization are always attached to the obsolete - the things that should have worked but did not, the things that once were productive and no longer are.");
-		sentenceStringList.add("The building of a personality beyond its normal limitations.\n" + "");
-		sentenceStringList.add(
-				"Management means, in the last analysis, the substitution of thought for brawn and muscle, of knowledge for folkways and superstition, and of cooperation for force. It means the substitution of responsibility for obedience to rank, and of authority of performance for the authority of rank.");
-		sentenceStringList.add("Leaders grow; they are not made.\n" + "");
-		sentenceStringList.add(
-				"The effective executive knows that it is easier to raise the performance of one leader than it is to raise the performance of a whole mass. She therefore makes sure she puts into the leadership position, into the standard-setting, the performance-making position the person who has the strength to do the outstanding pacesetting job. This always requires focus on the one strength of a person and dismissal of weaknesses as irrelevant unless they hamper the full deployment of the available strength.");
-		sentenceStringList.add(
-				"No institution can possibly survive if it needs geniuses or supermen to manage it. It must be organized in such a way as to be able to get along under a leadership composed of average human beings.\n"
-						+ "");
-		sentenceStringList.add("Accept the fact that we have to treat almost anybody as a volunteer.\n" + "");
-		sentenceStringList.add(
-				"Successful careers are not planned. They develop when people are prepared for opportunities because they know their strengths, their method of work, and their values. Knowing where one belongs can transform an ordinary person - hardworking and competent but otherwise mediocre - into an outstanding performer.");
-		sentenceStringList.add("The best way to predict the future is to create it.\n" + "");
-		sentenceStringList.add(
-				"We live in an age of unprecedented opportunity: If you’ve got ambition and smarts, you can rise to the top of your chosen profession, regardless of where you started out.");
-		sentenceStringList.add("Today knowledge has power. It controls access to opportunity and advancement.\n" + "");
-		sentenceStringList
-				.add("Innovation opportunities do not come with the tempest but with the rustling of the breeze.");
-		sentenceStringList.add("Every single social and global issue of our day is a business opportunity in disguise");
-		sentenceStringList.add(
-				"Innovation requires us to systematically identify changes that have already occurred in a business - in demographics, in values, in technology or science - and then to look at them as opportunities. It also requires something that is most difficult for existing companies to do: to abandon rather than defend yesterday.");
-		sentenceStringList.add(
-				"Innovation is the specific tool of entrepreneurs, the means by which they exploit change as an opportunity for a different business or a different service. It is capable of being presented as a discipline, capable of being learned, capable of being practiced. Entrepreneurs need to search purposefully for the sources of innovation, the changes and their symptoms that indicate opportunities for successful innovation. And they need to know and to apply the principles of successful innovation.\n"
-						+ "");
-		sentenceStringList.add(
-				"Effective people are not problem minded; they're opportunity-minded. They feed opportunities and starve problems. They think preventively.");
-		sentenceStringList.add(
-				"If general perception changes from seeing the glass as 'half-full' to seeing it as 'half empty' there are major innovative opportunities.");
-		sentenceStringList.add("Results are obtained by exploiting opportunities, not by solving problems.");
-		sentenceStringList.add(
-				"Innovation is the specific tool of entrepreneurs, the means by which they exploit change as an opportunity for a different business or a different service.");
-		sentenceStringList.add(
-				"Thus, for those who are willing to go out into the field, to look and to listen, changing demographics is both a highly productive and a highly dependable innovation opportunity.");
-
-		sentenceStringList.add(
-				"No other area offers richer opportunities for successful innovation than the unexpected success.\n"
-						+ "");
-
-		sentenceStringList.add(
-				"The real development I've seen of people in organizations, especially in big ones, comes from their being volunteers in a nonprofit organization - where you have responsibility, you see results, and you quickly learn what your values are. There is no better way to understand your strengths and discover where you belong than to volunteer in a nonprofit. That is probably the great opportunity for the social sector - and especially in its relationship to business.");
-		sentenceStringList.add(
-				"Progress is obtained only by exploiting opportunities, not by solving problems. When you solve problems, all you do is guarantee a return to normalcy.");
-		sentenceStringList.add(
-				"It is more productive to convert an opportunity into results than to solve a problem - which only restores the equilibrium of yesterday.\n"
-						+ "");
-		sentenceStringList.add("Most organizations staff their problems & starve their opportunities.\n" + "");
-		sentenceStringList.add(
-				"Tomorrow everybody - or practically everybody - will have had the education of the upper class of yesterday, and will expect equivalent opportunities. That is why we face the problem of making every kind of job meaningful and capable of satisfying every educated man.\n"
-						+ "");
-		sentenceStringList.add(
-				"The most important work of the executive is to identify the changes that have already happened. The important thing . . . is to exploit the changes that have already occurred and to use them as opportunities.\n"
-						+ "");
-		sentenceStringList.add("Systematic change requires a willingness to look on change as an opportunity.");
-		sentenceStringList.add(
-				"What is the manager's job? It is to direct the resources and the efforts of the business toward opportunities for economically significant results. This sounds trite - and it is. But every analysis of actual allocation of resources and efforts in business that I have ever seen or made showed clearly that the bulk of time, work, attention, and money first goes to problems rather than to opportunities, and, secondly, to areas where even extraordinarily successful performance will have minimal impact on results.");
-
-		sentenceStringList.add(
-				"Many studies of research scientists have shown that achievement (at least below the genius level of an Einstein, Bohr, or a Planck) depends less on ability in doing research than on the courage to go after opportunity.\n"
-						+ "");
-		sentenceStringList.add("");
-		sentenceStringList.add("");
-		sentenceStringList.add("");
-		sentenceStringList.add("");
-		sentenceStringList.add("");
-		sentenceStringList.add("");
-		sentenceStringList.add("");
-		sentenceStringList.add("");
+		sentenceStringList.add("革新とは、単なる方法ではなくて、新しい世界観を意味する");
+		sentenceStringList.add("人間は単脳マシーンではない");
+		sentenceStringList.add("学習を阻害するもの");
+		sentenceStringList.add("企業が、より大きくなる必要はないが、不断に、よりよくならねばならない");
+		sentenceStringList.add("問題解決を図るよりも、新しい機会に着目して創造せよ");
+		sentenceStringList.add("アクション（行動）によるフォローアップ（対査）なきプロジェクト（計画）はパフォーマンス（実績）を生まない");
 
 		for (String text : sentenceStringList) {
 			Sentence sentence = new Sentence();
 
 			sentence.setSentence(text);
-			sentence.setLanguage("en");
+			sentence.setLanguage("jp");
 			sentenceRepository.save(sentence);
 
 			CloodApiFunction CloudApi = new CloodApiFunction();
