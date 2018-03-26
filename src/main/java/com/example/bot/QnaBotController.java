@@ -3,12 +3,17 @@ package com.example.bot;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.ls.LSInput;
 
 import com.example.entity.BotInformation;
 import com.example.entity.Sentence;
@@ -87,26 +93,31 @@ public class QnaBotController {
 		logger.info("*******************INTENT NAME : '{}'", intentName);
 		logger.info("********************CUSTOMER MESSAGE : '{}'", customerMessage);
 
-		if (intentName.equals("Default Fallback Intent")) {
+		BotInformation botInformation = new BotInformation();
+
+		switch (intentName) {
+
+		case "Default Fallback Intent":
 			logger.info("********************Default Fallback Intent******************");
 
 			try {
-				BotInformation botInformation = new BotInformation();
+
 				botInformation.setSentenceToSearch(customerMessage);
 				botInformationRepository.saveAndFlush(botInformation);
 				List<Entity> entities = analyzeEntitiesText(customerMessage);
-				List<String> entitiesNames = new ArrayList<>();
-				for (Entity e : entities) {
-					entitiesNames.add(e.getName());
-				}
 
 				Sentence sentence = new Sentence();
-				sentence = similarSentance(entitiesNames);
+				sentence = similarSentance(entities);
 				if (sentence != null && !sentence.equals("")) {
 					TextMessage textMessage = new TextMessage(sentence.getSentence());
 					PushMessage pushMessage = new PushMessage(userId, textMessage);
 					LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
 				} else {
+					//
+					// if (botInformation.getLanguageBot().equals("japanese")) {}
+					// if (botInformation.getLanguageBot().equals("english")) {}
+					
+					
 					TextMessage textMessage = new TextMessage("sorry, there is no similar sentence.");
 					PushMessage pushMessage = new PushMessage(userId, textMessage);
 					LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
@@ -137,10 +148,87 @@ public class QnaBotController {
 				e.printStackTrace();
 			}
 
+			break;
+
+		/************ user wants to invite his friends *************/
+		case "invite friend":
+			if (botInformation.getLanguageBot().equals("japanese")) {
+				TextMessage textMessage1 = new TextMessage(
+						"ありがとうございます！このリンクをシェアしてください！ https://line.me/R/ti/p/%40tms8877v");
+				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
+			} else if (botInformation.getLanguageBot().equals("english")) {
+				TextMessage textMessage1 = new TextMessage(
+						"Thank you! here is your link. https://line.me/R/ti/p/%40tms8877v");
+				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
+			}
+
+			break;
+		case "search random sentence":
+			try {
+				int idSentence = anyItem();
+
+				Sentence sentence = new Sentence();
+				sentence = sentenceRepository.findOne(idSentence);
+				botInformation.setSentenceToSearch(sentence.getSentence());
+				botInformationRepository.saveAndFlush(botInformation);
+				if (botInformation.getLanguageBot().equals("japanese")) {
+					if (sentence != null && !sentence.equals("")) {
+						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+								"該当する名言が見つかりませんでした。この言葉はどうですか？ -> " + sentence.getSentence(),
+								Arrays.asList(new MessageAction("素晴らしい", "素晴らしい")));
+						TemplateMessage templateMessage = new TemplateMessage(
+								"該当する名言が見つかりませんでした。この言葉はどうですか？ -> " + sentence.getSentence(), buttonsTemplate);
+
+						PushMessage pushMessage = new PushMessage(userId, templateMessage);
+						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
+								.execute();
+
+					} else {
+						logger.info("*************NO RANDOM SENTENCE JAPANESE************************** ");
+					}
+
+				}
+
+				else if (botInformation.getLanguageBot().equals("english")) {
+					if (sentence != null && !sentence.equals("")) {
+						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+								"I couldn't find the sentence. What about this? -> " + sentence.getSentence(),
+								Arrays.asList(new MessageAction("Nice!", "Nice!")));
+						TemplateMessage templateMessage = new TemplateMessage(
+								"I couldn't find the sentence. What about this? -> " + sentence.getSentence(),
+								buttonsTemplate);
+
+						PushMessage pushMessage = new PushMessage(userId, templateMessage);
+						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
+								.execute();
+
+					} else {
+						logger.info("*************NO RANDOM SENTENCE ENGLISH************************** ");
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "nice":
+			if (botInformation.getLanguageBot().equals("japanese")) {
+				TextMessage textMessage1 = new TextMessage(
+						"ありがとうございます！この本からトラッカーさんの名言をもっと確認できます。https://amzn.to/2Gq1FMr");
+				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
+			} else if (botInformation.getLanguageBot().equals("english")) {
+				TextMessage textMessage1 = new TextMessage("Thank you! You can check more from this book.");
+				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
+			}
+			break;
+
 		}
-
 		return obj;
-
 	}
 
 	/**
@@ -181,22 +269,26 @@ public class QnaBotController {
 		// [END analyze_entities_text]
 	}
 
-	public Sentence similarSentance(List<String> userEntities) {
+	public Sentence similarSentance(List<Entity> userEntities) {
 
 		List<Sentence> sentences = new ArrayList<>();
 		sentences = sentenceRepository.findAll();
 		float maxSalience = 0;
 		Sentence similarSentence = null;
 
+		List<String> entitiesNames = new ArrayList<>();
+		for (Entity e : userEntities) {
+			entitiesNames.add(e.getName());
+		}
 		List<com.example.entity.Entity> entities = new ArrayList<>();
 		float salience = 0;
 		for (Sentence s : sentences) {
 			entities = sentenceRelationRepository.getEntitiesOfSentence(s.getIdSentence());
 			for (com.example.entity.Entity e : entities) {
-				if (userEntities.contains(e.getNameEntity())) {
-					salience = salience + e.getSalience();
-				} else {
-					salience = (float) (salience - 0.001);
+				if (entitiesNames.contains(e.getNameEntity())) {
+					for (Entity en : userEntities) {
+						salience = salience + (en.getSalience() * e.getSalience());
+					}
 				}
 			}
 
@@ -207,6 +299,16 @@ public class QnaBotController {
 			salience = 0;
 		}
 		return similarSentence;
+	}
+
+	public int anyItem() {
+		List<Integer> sentenceIDs = new ArrayList<>();
+		sentenceIDs = sentenceRepository.getAllSentenceIDs();
+		Random randomGenerator = null;
+		int index = randomGenerator.nextInt(sentenceIDs.size());
+		int item = sentenceIDs.get(index);
+		logger.info("****************item ******************** '{}'", item);
+		return item;
 	}
 
 }

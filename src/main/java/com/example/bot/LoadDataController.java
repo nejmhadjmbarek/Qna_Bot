@@ -1,10 +1,13 @@
 package com.example.bot;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Sentence;
@@ -15,6 +18,9 @@ import com.example.repository.SentenceEntityRelationRepository;
 import com.example.repository.SentenceRepository;
 import com.google.cloud.language.v1.Entity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 public class LoadDataController {
 	@Autowired
@@ -24,6 +30,9 @@ public class LoadDataController {
 
 	@Autowired
 	SentenceEntityRelationRepository sentenceEntityRelationRepository;
+
+	/** The Constant logger. */
+	private static final Logger logger = LoggerFactory.getLogger(LoadDataController.class);
 
 	@RequestMapping(value = "/store/sentence")
 	public String storeSentenceToDataBase() {
@@ -538,4 +547,78 @@ public class LoadDataController {
 
 	}
 
+	@RequestMapping(value = "/uploadSentence", method = RequestMethod.GET)
+	public void uploadSentenceFile() {
+		try {
+
+			/*******************************************/
+			String line = "";
+
+			String csvFile = "/opt/apache-tomcat-8.5.29/";
+			BufferedReader br = null;
+			FileReader fr = null;
+			fr = new FileReader(csvFile);
+			br = new BufferedReader(fr);
+			br.readLine();
+			logger.info("----------START---uploadSentenceFile--------");
+			int i = 1;
+
+			while ((line = br.readLine()) != null) {
+				logger.info("----------COMULM NUM----------- '{}'", i);
+				i = i + 1;
+				String sentence = null;
+
+				String[] column = line.split(",");
+
+				logger.info("--column[3]-sourceSentence--");
+
+				if (column[3] != null && !column[3].equals("")) {
+					sentence = column[3];
+					logger.info("/******** 3 ***sentence******* '{}'", sentence);
+					Sentence sentenceToAdd = new Sentence();
+
+					sentenceToAdd.setSentence(sentence);
+					sentenceToAdd.setLanguage("jp");
+					sentenceRepository.save(sentenceToAdd);
+
+					CloodApiFunction CloudApi = new CloodApiFunction();
+					List<Entity> sentenceEntities = new ArrayList<>();
+					try {
+						sentenceEntities = CloudApi.analyzeEntitiesText(sentence);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					for (Entity entity : sentenceEntities) {
+
+						com.example.entity.Entity entityDb = new com.example.entity.Entity();
+
+						entityDb.setNameEntity(entity.getName());
+						entityDb.setSalience(entity.getSalience());
+
+						entityDb = entityRepository.save(entityDb);
+
+						SentenceEntityRelationPK sentenceEntityRelationPK = new SentenceEntityRelationPK();
+
+						sentenceEntityRelationPK.setIdEntity(entityDb.getIdEntity());
+						sentenceEntityRelationPK.setIdSentence(sentenceToAdd.getIdSentence());
+
+						SentenceEntityRelation sentenceEntityRelation = new SentenceEntityRelation();
+						sentenceEntityRelation.setSentenceRelationPK(sentenceEntityRelationPK);
+						sentenceEntityRelation.setEntity(entityDb);
+						sentenceEntityRelation.setSentence(sentenceToAdd);
+						sentenceEntityRelationRepository.save(sentenceEntityRelation);
+					}
+
+				}
+			}
+			br.close();
+			logger.info("---SENTENCE-------CLOSE--FINISH---UPLOAD------");
+
+		} catch (Exception e) {
+			logger.error("---------EXCEPTION UPLOAD SENTENCE ----------------", e);
+			logger.info("----SENTENCE------CLOSE-----Exception------");
+		}
+
+	}
 }

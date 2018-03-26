@@ -18,7 +18,11 @@ public class BotInformation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idBotInformation;
 
-	private String SentenceToSearch;
+	private String sentenceToSearch;
+
+	private String languageBot = "japanese";;
+
+	private String intentName;
 
 	public int getIdBotInformation() {
 		return idBotInformation;
@@ -29,11 +33,27 @@ public class BotInformation implements Serializable {
 	}
 
 	public String getSentenceToSearch() {
-		return SentenceToSearch;
+		return sentenceToSearch;
 	}
 
 	public void setSentenceToSearch(String sentenceToSearch) {
-		SentenceToSearch = sentenceToSearch;
+		this.sentenceToSearch = sentenceToSearch;
+	}
+
+	public String getLanguageBot() {
+		return languageBot;
+	}
+
+	public void setLanguageBot(String languageBot) {
+		this.languageBot = languageBot;
+	}
+
+	public String getIntentName() {
+		return intentName;
+	}
+
+	public void setIntentName(String intentName) {
+		this.intentName = intentName;
 	}
 
 }
