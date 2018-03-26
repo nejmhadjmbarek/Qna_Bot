@@ -113,14 +113,28 @@ public class QnaBotController {
 					PushMessage pushMessage = new PushMessage(userId, textMessage);
 					LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
 				} else {
-					//
-					// if (botInformation.getLanguageBot().equals("japanese")) {}
-					// if (botInformation.getLanguageBot().equals("english")) {}
-					
-					
-					TextMessage textMessage = new TextMessage("sorry, there is no similar sentence.");
-					PushMessage pushMessage = new PushMessage(userId, textMessage);
-					LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+					if (botInformation.getLanguageBot().equals("japanese")) {
+						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+								"該当する名言が見つかりませんでした。この言葉はどうですか？ -> " + sentence.getSentence(),
+								Arrays.asList(new MessageAction("素晴らしい", "素晴らしい")));
+						TemplateMessage templateMessage = new TemplateMessage(
+								"該当する名言が見つかりませんでした。この言葉はどうですか？ -> " + sentence.getSentence(), buttonsTemplate);
+
+						PushMessage pushMessage = new PushMessage(userId, templateMessage);
+						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
+								.execute();
+					}
+					if (botInformation.getLanguageBot().equals("english")) {
+						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+								"I couldn't find the sentence. What about this? -> " + sentence.getSentence(),
+								Arrays.asList(new MessageAction("Nice!", "Nice!")));
+						TemplateMessage templateMessage = new TemplateMessage(
+								"I couldn't find the sentence. What about this? -> " + sentence.getSentence(),
+								buttonsTemplate);
+						PushMessage pushMessage = new PushMessage(userId, templateMessage);
+						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
+								.execute();
+					}
 				}
 				//
 				// for (Entity e : entities) {
@@ -167,13 +181,13 @@ public class QnaBotController {
 			break;
 		case "search random sentence":
 			try {
-				int idSentence = anyItem();
-
-				Sentence sentence = new Sentence();
-				sentence = sentenceRepository.findOne(idSentence);
-				botInformation.setSentenceToSearch(sentence.getSentence());
-				botInformationRepository.saveAndFlush(botInformation);
+				int idSentence;
 				if (botInformation.getLanguageBot().equals("japanese")) {
+					idSentence = anyIDJapanese();
+					Sentence sentence = new Sentence();
+					sentence = sentenceRepository.findOne(idSentence);
+					botInformation.setSentenceToSearch(sentence.getSentence());
+					botInformationRepository.saveAndFlush(botInformation);
 					if (sentence != null && !sentence.equals("")) {
 						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
 								"該当する名言が見つかりませんでした。この言葉はどうですか？ -> " + sentence.getSentence(),
@@ -192,6 +206,11 @@ public class QnaBotController {
 				}
 
 				else if (botInformation.getLanguageBot().equals("english")) {
+					idSentence = anyIDEnglish();
+					Sentence sentence = new Sentence();
+					sentence = sentenceRepository.findOne(idSentence);
+					botInformation.setSentenceToSearch(sentence.getSentence());
+					botInformationRepository.saveAndFlush(botInformation);
 					if (sentence != null && !sentence.equals("")) {
 						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
 								"I couldn't find the sentence. What about this? -> " + sentence.getSentence(),
@@ -227,6 +246,33 @@ public class QnaBotController {
 			}
 			break;
 
+		case "change language":
+			if (botInformation.getLanguageBot().equals("japanese")) {
+				ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, "言語を変えたいです。",
+						Arrays.asList(new MessageAction("English", "English"), new MessageAction("日本語", "日本語")));
+				TemplateMessage templateMessage = new TemplateMessage("言語を変えたいです。", buttonsTemplate);
+				PushMessage pushMessage = new PushMessage(userId, templateMessage);
+				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+			}
+			if (botInformation.getLanguageBot().equals("english")) {
+				ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, "Change language",
+						Arrays.asList(new MessageAction("English", "English"), new MessageAction("日本語", "日本語")));
+				TemplateMessage templateMessage = new TemplateMessage("Change language", buttonsTemplate);
+				PushMessage pushMessage = new PushMessage(userId, templateMessage);
+				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+			}
+			break;
+
+		case "language":
+			logger.info("------------language--------------------", language);
+			if (language.equals("English") || language.equals("en") || language.equals("english")) {
+				botInformation.setLanguageBot("english");
+			} else {
+				botInformation.setLanguageBot("japanese");
+			}
+			botInformationRepository.saveAndFlush(botInformation);
+			break;
+			
 		}
 		return obj;
 	}
@@ -250,12 +296,12 @@ public class QnaBotController {
 			// Print the response
 			for (Entity entity : response.getEntitiesList()) {
 				logger.info("********************Entity : '{}'", entity.getName());
-
 				logger.info("********************Salience : '{}'", entity.getSalience());
 
 				// for (Map.Entry<String, String> entry : entity.getMetadataMap().entrySet()) {
 				// System.out.printf("%s : %s", entry.getKey(), entry.getValue());
 				// }
+
 				for (EntityMention mention : entity.getMentionsList()) {
 					System.out.printf("Begin offset: %d\n", mention.getText().getBeginOffset());
 					System.out.printf("Content: %s\n", mention.getText().getContent());
@@ -301,13 +347,23 @@ public class QnaBotController {
 		return similarSentence;
 	}
 
-	public int anyItem() {
+	public int anyIDEnglish() {
 		List<Integer> sentenceIDs = new ArrayList<>();
-		sentenceIDs = sentenceRepository.getAllSentenceIDs();
-		Random randomGenerator = null;
+		sentenceIDs = sentenceRepository.getAllSentenceIDsEnglish();
+		Random randomGenerator = new Random();
 		int index = randomGenerator.nextInt(sentenceIDs.size());
 		int item = sentenceIDs.get(index);
-		logger.info("****************item ******************** '{}'", item);
+		logger.info("****************item English******************** '{}'", item);
+		return item;
+	}
+
+	public int anyIDJapanese() {
+		List<Integer> sentenceIDs = new ArrayList<>();
+		sentenceIDs = sentenceRepository.getAllSentenceIDsJapanese();
+		Random randomGenerator = new Random();
+		int index = randomGenerator.nextInt(sentenceIDs.size());
+		int item = sentenceIDs.get(index);
+		logger.info("****************item Japanese******************** '{}'", item);
 		return item;
 	}
 

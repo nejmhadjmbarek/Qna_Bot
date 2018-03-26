@@ -12,8 +12,11 @@ import com.example.entity.Sentence;
 
 @Repository
 @RepositoryRestResource
-public interface SentenceRepository  extends JpaRepository<Sentence, Serializable>{
+public interface SentenceRepository extends JpaRepository<Sentence, Serializable> {
 
-	@Query("SELECT  id_sentence FROM sentence s")
-	public List<Integer> getAllSentenceIDs();
+	@Query("SELECT  idSentence FROM Sentence s where s.language=en")
+	public List<Integer> getAllSentenceIDsEnglish();
+
+	@Query("SELECT  idSentence FROM Sentence s where s.language=jp")
+	public List<Integer> getAllSentenceIDsJapanese();
 }
