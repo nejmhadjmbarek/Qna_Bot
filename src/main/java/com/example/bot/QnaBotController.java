@@ -111,14 +111,25 @@ public class QnaBotController {
 					if (botInformation.getLanguageBot().equals("japanese")) {
 
 						if (sentence.getSentence().length() > 151) {
-							TextMessage textMessage = new TextMessage(
-									"素晴らしいです！ " + sentence.getSentence().substring(0, 151));
-							PushMessage pushMessage = new PushMessage(userId, textMessage);
+
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+									sentence.getSentence().substring(0, 151) + " : 素晴らしいです!",
+									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
+							TemplateMessage templateMessage = new TemplateMessage(
+									sentence.getSentence().substring(0, 151) + " : 素晴らしいです!", buttonsTemplate);
+
+							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
+
 						} else {
-							TextMessage textMessage = new TextMessage("素晴らしいです！ " + sentence.getSentence());
-							PushMessage pushMessage = new PushMessage(userId, textMessage);
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+									sentence.getSentence() + " : 素晴らしいです!",
+									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
+							TemplateMessage templateMessage = new TemplateMessage(
+									sentence.getSentence() + " : 素晴らしいです!", buttonsTemplate);
+
+							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 						}
@@ -126,106 +137,137 @@ public class QnaBotController {
 					}
 					if (botInformation.getLanguageBot().equals("english")) {
 						if (sentence.getSentence().length() > 137) {
-							TextMessage textMessage = new TextMessage(
-									"Most Similar sentence: " + sentence.getSentence().substring(0, 137));
-							PushMessage pushMessage = new PushMessage(userId, textMessage);
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+									"Most Similar sentence : " + sentence.getSentence().substring(0, 137),
+									Arrays.asList(new MessageAction("Nice！", "Nice!")));
+							TemplateMessage templateMessage = new TemplateMessage(
+									"Most Similar sentence : " + sentence.getSentence().substring(0, 137),
+									buttonsTemplate);
+
+							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 						} else {
-							TextMessage textMessage = new TextMessage(
-									"Most Similar sentence: " + sentence.getSentence());
-							PushMessage pushMessage = new PushMessage(userId, textMessage);
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+									"Most Similar sentence : " + sentence.getSentence(),
+									Arrays.asList(new MessageAction("Nice！", "Nice!")));
+							TemplateMessage templateMessage = new TemplateMessage(
+									"Most Similar sentence : " + sentence.getSentence(), buttonsTemplate);
+
+							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 						}
-
 					}
-				}
+				} else {
 
-				else {
 					try {
+
 						int idSentence;
 						if (botInformation.getLanguageBot().equals("japanese")) {
-							idSentence = anyID("jp");
-							logger.info("*************idSentence****************", idSentence);
-							Sentence sentence1 = new Sentence();
-							sentence1 = sentenceRepository.findOne(idSentence);
-							botInformation.setSentenceToSearch(sentence1.getSentence());
-							botInformationRepository.saveAndFlush(botInformation);
-							if (sentence1 != null && !sentence1.equals("")) {
 
-								if (sentence1.getSentence().length() > 126) {
-									ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-											"それについては考えたことがないな。。。つまりこういうことかな？\n "
-													+ sentence1.getSentence().substring(0, 126),
-											Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-									TemplateMessage templateMessage = new TemplateMessage(
-											"それについては考えたことがないな。。。つまりこういうことかな？\n "
-													+ sentence1.getSentence().substring(0, 126),
-											buttonsTemplate);
-
-									PushMessage pushMessage = new PushMessage(userId, templateMessage);
-									LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
-											.pushMessage(pushMessage).execute();
-								} else {
-									ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-											"それについては考えたことがないな。。。つまりこういうことかな？\n " + sentence1.getSentence(),
-											Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-									TemplateMessage templateMessage = new TemplateMessage(
-											"それについては考えたことがないな。。。つまりこういうことかな？\n " + sentence1.getSentence(),
-											buttonsTemplate);
-
-									PushMessage pushMessage = new PushMessage(userId, templateMessage);
-									LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
-											.pushMessage(pushMessage).execute();
-								}
-
+							logger.info("------------------ENTITIES SIZE -------------------- '{}'", entities.size());
+							if (entities.isEmpty()) {
+								TextMessage textMessage1 = new TextMessage("もっと細かく聞いてくれないか？");
+								PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+								LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+										.pushMessage(pushMessage1).execute();
 							} else {
-								logger.info("*************NO RANDOM SENTENCE JAPANESE************************** ");
-							}
+								idSentence = anyID("jp");
+								logger.info("*************idSentence****************'{}'", idSentence);
+								Sentence sentence1 = new Sentence();
+								sentence1 = sentenceRepository.findOne(idSentence);
+								botInformation.setSentenceToSearch(sentence1.getSentence());
+								botInformationRepository.saveAndFlush(botInformation);
+								TextMessage textMessage1 = new TextMessage("それについては考えたことがないな。。。つまりこういうことかな？");
 
+								PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+								LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+										.pushMessage(pushMessage1).execute();
+
+								if (sentence1 != null && !sentence1.equals("")) {
+
+									if (sentence1.getSentence().length() > 149) {
+
+										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+												sentence1.getSentence().substring(0, 149) + " : 素晴らしいです!",
+												Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
+										TemplateMessage templateMessage = new TemplateMessage(
+												sentence1.getSentence().substring(0, 149) + " : 素晴らしいです!",
+												buttonsTemplate);
+
+										PushMessage pushMessage = new PushMessage(userId, templateMessage);
+										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+												.pushMessage(pushMessage).execute();
+
+									} else {
+										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+												sentence1.getSentence() + " : 素晴らしいです!",
+												Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
+										TemplateMessage templateMessage = new TemplateMessage(
+												sentence1.getSentence() + " : 素晴らしいです!", buttonsTemplate);
+
+										PushMessage pushMessage = new PushMessage(userId, templateMessage);
+										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+												.pushMessage(pushMessage).execute();
+									}
+
+								} else {
+									logger.info("*************NO RANDOM SENTENCE JAPANESE************************** ");
+								}
+							}
 						}
 
 						else if (botInformation.getLanguageBot().equals("english")) {
-							idSentence = anyID("en");
-							logger.info("*************idSentence****************", idSentence);
-							Sentence sentence1 = new Sentence();
-							sentence1 = sentenceRepository.findOne(idSentence);
-							botInformation.setSentenceToSearch(sentence1.getSentence());
-							botInformationRepository.saveAndFlush(botInformation);
-							if (sentence1 != null && !sentence1.equals("")) {
-								if (sentence1.getSentence().length() > 113) {
-									ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-											"I couldn't find the sentence. What about this? "
-													+ sentence1.getSentence().substring(0, 113),
-											Arrays.asList(new MessageAction("Nice!", "Nice!")));
-									TemplateMessage templateMessage = new TemplateMessage(
-											"I couldn't find the sentence. What about this? "
-													+ sentence1.getSentence().substring(0, 113),
-											buttonsTemplate);
-
-									PushMessage pushMessage = new PushMessage(userId, templateMessage);
-									LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
-											.pushMessage(pushMessage).execute();
-								} else {
-									ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-											"I couldn't find the sentence. What about this? -> "
-													+ sentence1.getSentence(),
-											Arrays.asList(new MessageAction("Nice!", "Nice!")));
-									TemplateMessage templateMessage = new TemplateMessage(
-											"I couldn't find the sentence. What about this? -> "
-													+ sentence1.getSentence(),
-											buttonsTemplate);
-
-									PushMessage pushMessage = new PushMessage(userId, templateMessage);
-									LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
-											.pushMessage(pushMessage).execute();
-								}
-
+							if (entities.isEmpty()) {
+								TextMessage textMessage1 = new TextMessage("ask me in detail");
+								PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+								LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+										.pushMessage(pushMessage1).execute();
 							} else {
-								logger.info("*************NO RANDOM SENTENCE ENGLISH************************** ");
-							}
+								idSentence = anyID("en");
+								logger.info("*************idSentence****************'{}'", idSentence);
+								Sentence sentence1 = new Sentence();
+								sentence1 = sentenceRepository.findOne(idSentence);
+								botInformation.setSentenceToSearch(sentence1.getSentence());
+								botInformationRepository.saveAndFlush(botInformation);
 
+								TextMessage textMessage1 = new TextMessage(
+										"I couldn't find the sentence. What about this?");
+								PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
+								LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+										.pushMessage(pushMessage1).execute();
+
+								if (sentence1 != null && !sentence1.equals("")) {
+
+									if (sentence1.getSentence().length() > 136) {
+
+										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+												"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
+												Arrays.asList(new MessageAction("Nice!", "Nice!")));
+										TemplateMessage templateMessage = new TemplateMessage(
+												"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
+												buttonsTemplate);
+
+										PushMessage pushMessage = new PushMessage(userId, templateMessage);
+										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+												.pushMessage(pushMessage).execute();
+									} else {
+										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+												"Most Similar sentence : " + sentence1.getSentence(),
+												Arrays.asList(new MessageAction("Nice!", "Nice!")));
+										TemplateMessage templateMessage = new TemplateMessage(
+												"Most Similar sentence : " + sentence1.getSentence(), buttonsTemplate);
+
+										PushMessage pushMessage = new PushMessage(userId, templateMessage);
+										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
+												.pushMessage(pushMessage).execute();
+									}
+
+								} else {
+									logger.info("*************NO RANDOM SENTENCE ENGLISH************************** ");
+								}
+							}
 						}
 
 					} catch (Exception e) {
@@ -283,56 +325,57 @@ public class QnaBotController {
 				if (botInformation.getLanguageBot().equals("japanese")) {
 					idSentence = anyID("jp");
 					logger.info("*************idSentence****************", idSentence);
-					Sentence sentence = new Sentence();
-					sentence = sentenceRepository.findOne(idSentence);
-					botInformation.setSentenceToSearch(sentence.getSentence());
+					Sentence sentence1 = new Sentence();
+					sentence1 = sentenceRepository.findOne(idSentence);
+					botInformation.setSentenceToSearch(sentence1.getSentence());
 					botInformationRepository.saveAndFlush(botInformation);
-					if (sentence != null && !sentence.equals("")) {
+					if (sentence1 != null && !sentence1.equals("")) {
 
-						if (sentence.getSentence().length() > 126) {
+						if (sentence1.getSentence().length() > 151) {
+
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"それについては考えたことがないな。。。つまりこういうことかな？\n " + sentence.getSentence().substring(0, 126),
+									sentence1.getSentence().substring(0, 151) + " : 素晴らしいです!",
 									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									"それについては考えたことがないな。。。つまりこういうことかな？\n " + sentence.getSentence().substring(0, 126),
-									buttonsTemplate);
+									sentence1.getSentence().substring(0, 151) + " : 素晴らしいです!", buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
+
 						} else {
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"それについては考えたことがないな。。。つまりこういうことかな？\n " + sentence.getSentence(),
+									sentence1.getSentence() + " : 素晴らしいです!",
 									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									"それについては考えたことがないな。。。つまりこういうことかな？\n " + sentence.getSentence(), buttonsTemplate);
+									sentence1.getSentence() + " : 素晴らしいです!", buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 						}
-
 					} else {
 						logger.info("*************NO RANDOM SENTENCE JAPANESE************************** ");
 					}
 
 				}
+
 				else if (botInformation.getLanguageBot().equals("english")) {
 					idSentence = anyID("en");
 					logger.info("*************idSentence****************", idSentence);
-					Sentence sentence = new Sentence();
-					sentence = sentenceRepository.findOne(idSentence);
-					botInformation.setSentenceToSearch(sentence.getSentence());
+					Sentence sentence1 = new Sentence();
+					sentence1 = sentenceRepository.findOne(idSentence);
+					botInformation.setSentenceToSearch(sentence1.getSentence());
 					botInformationRepository.saveAndFlush(botInformation);
-					if (sentence != null && !sentence.equals("")) {
-						if (sentence.getSentence().length() > 113) {
+					if (sentence1 != null && !sentence1.equals("")) {
+
+						if (sentence1.getSentence().length() > 136) {
+
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"I couldn't find the sentence. What about this? "
-											+ sentence.getSentence().substring(0, 113),
+									"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
 									Arrays.asList(new MessageAction("Nice!", "Nice!")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									"I couldn't find the sentence. What about this? "
-											+ sentence.getSentence().substring(0, 113),
+									"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
 									buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
@@ -340,18 +383,19 @@ public class QnaBotController {
 									.execute();
 						} else {
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"I couldn't find the sentence. What about this? -> " + sentence.getSentence(),
+									"Most Similar sentence : " + sentence1.getSentence(),
 									Arrays.asList(new MessageAction("Nice!", "Nice!")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									"I couldn't find the sentence. What about this? -> " + sentence.getSentence(),
-									buttonsTemplate);
+									"Most Similar sentence : " + sentence1.getSentence(), buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 						}
 
-					} else {
+					}
+
+					else {
 						logger.info("*************NO RANDOM SENTENCE ENGLISH************************** ");
 					}
 
@@ -370,7 +414,7 @@ public class QnaBotController {
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
 			} else if (botInformation.getLanguageBot().equals("english")) {
 				TextMessage textMessage1 = new TextMessage(
-						"Thank you! You can check more from this book.\n" + "https://amzn.to/2Gq1FMr");
+						"\nThank you! You can check more from this book.\n" + "https://amzn.to/2Gq1FMr");
 				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
 			}
@@ -405,6 +449,7 @@ public class QnaBotController {
 
 		}
 		return obj;
+
 	}
 
 	/**
