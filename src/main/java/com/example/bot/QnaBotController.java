@@ -110,13 +110,12 @@ public class QnaBotController {
 				if (sentence != null && !sentence.equals("")) {
 					if (botInformation.getLanguageBot().equals("japanese")) {
 
-						if (sentence.getSentence().length() > 151) {
-
+						if (sentence.getSentence().length() > 149) {
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									sentence.getSentence().substring(0, 151) + " : 素晴らしいです!",
+									sentence.getSentence().substring(0, 149) + " : 素晴らしいです！",
 									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									sentence.getSentence().substring(0, 151) + " : 素晴らしいです!", buttonsTemplate);
+									sentence.getSentence().substring(0, 149) + " : 素晴らしいです!", buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
@@ -136,12 +135,12 @@ public class QnaBotController {
 
 					}
 					if (botInformation.getLanguageBot().equals("english")) {
-						if (sentence.getSentence().length() > 137) {
+						if (sentence.getSentence().length() > 136) {
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"Most Similar sentence : " + sentence.getSentence().substring(0, 137),
+									"Most Similar sentence : " + sentence.getSentence().substring(0, 136),
 									Arrays.asList(new MessageAction("Nice！", "Nice!")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									"Most Similar sentence : " + sentence.getSentence().substring(0, 137),
+									"Most Similar sentence : " + sentence.getSentence().substring(0, 136),
 									buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
@@ -168,7 +167,7 @@ public class QnaBotController {
 
 							logger.info("------------------ENTITIES SIZE -------------------- '{}'", entities.size());
 							if (entities.isEmpty()) {
-								TextMessage textMessage1 = new TextMessage("もっと細かく聞いてくれないか？");
+								TextMessage textMessage1 = new TextMessage("具体的にどういうことかな？");
 								PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 								LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
 										.pushMessage(pushMessage1).execute();
@@ -306,14 +305,13 @@ public class QnaBotController {
 		case "invite friend":
 			if (botInformation.getLanguageBot().equals("japanese")) {
 				logger.info("-----------JAPANESE LANGUAGE INVITE FRIEND----------------");
-				TextMessage textMessage1 = new TextMessage(
-						"ありがとうございます！このリンクをシェアしてください！ https://line.me/R/ti/p/%40tms8877v");
+				TextMessage textMessage1 = new TextMessage("どうも。この本にもっと良いことを書いているよ。もし良かったらどうぞ。\n https://amzn.to/2Gq1FMr");
 				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
 			} else if (botInformation.getLanguageBot().equals("english")) {
 				logger.info("-----------ENGLISH LANGUAGE INVITE FRIEND----------------");
 				TextMessage textMessage1 = new TextMessage(
-						"Thank you! here is your link. https://line.me/R/ti/p/%40tms8877v");
+						"Thank you! here is your link. https://amzn.to/2Gq1FMr");
 				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
 			}
