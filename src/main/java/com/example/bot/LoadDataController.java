@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.entity.Book;
 import com.example.entity.Sentence;
 import com.example.entity.SentenceEntityRelation;
 import com.example.entity.SentenceEntityRelationPK;
+import com.example.repository.BookRepository;
 import com.example.repository.EntityRepository;
 import com.example.repository.SentenceEntityRelationRepository;
 import com.example.repository.SentenceRepository;
@@ -27,6 +29,8 @@ public class LoadDataController {
 	SentenceRepository sentenceRepository;
 	@Autowired
 	EntityRepository entityRepository;
+	@Autowired
+	BookRepository bookRepository;
 
 	@Autowired
 	SentenceEntityRelationRepository sentenceEntityRelationRepository;
@@ -618,6 +622,63 @@ public class LoadDataController {
 		} catch (Exception e) {
 			logger.error("---------EXCEPTION UPLOAD SENTENCE ----------------", e);
 			logger.info("----SENTENCE------CLOSE-----Exception------");
+		}
+
+	}
+
+	@RequestMapping(value = "/uploadBook", method = RequestMethod.GET)
+	public void uploadBookFile() {
+		try {
+
+			/*******************************************/
+			String line = "";
+
+			String csvFile = "/opt/tomcat/csv/Book.csv";
+			BufferedReader br = null;
+			FileReader fr = null;
+			fr = new FileReader(csvFile);
+			br = new BufferedReader(fr);
+			br.readLine();
+			logger.info("----------START---uploadFile--------");
+			int i = 1;
+
+			while ((line = br.readLine()) != null) {
+				logger.info("----------COMULM NUM----------- '{}'", i);
+				i = i + 1;
+				String bookName = "";
+				String bookLink = "";
+				String bookImage = "";
+
+				String[] column = line.split(",");
+
+				logger.info("--column[0]-bookName--");
+
+				if (column[0] != null && !column[0].equals("")) {
+					bookName = column[0];
+					logger.info("/******** 0 ***bookName******* '{}'", bookName);
+				}
+				if (column[1] != null && !column[1].equals("")) {
+					bookLink = column[1];
+					logger.info("/******** 1 ***bookLink******* '{}'", bookLink);
+				}
+				if (column[2] != null && !column[2].equals("")) {
+					bookImage = column[2];
+					logger.info("/******** 2 ***bookImage******* '{}'", bookImage);
+				}
+
+				Book bookToAdd = new Book();
+				bookToAdd.setNameBook(bookName);
+				bookToAdd.setLink(bookLink);
+				bookToAdd.setImageURL(bookImage);
+				bookRepository.save(bookToAdd);
+
+			}
+			br.close();
+			logger.info("---BOOK-------CLOSE--FINISH---UPLOAD------");
+
+		} catch (Exception e) {
+			logger.error("---------EXCEPTION UPLOAD BOOK ----------------", e);
+			logger.info("----BOOK------CLOSE-----Exception------");
 		}
 
 	}

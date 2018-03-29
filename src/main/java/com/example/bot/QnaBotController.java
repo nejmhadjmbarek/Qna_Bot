@@ -1,19 +1,29 @@
 package com.example.bot;
 
+import java.awt.Image;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
+import com.linecorp.bot.model.message.template.CarouselColumn;
+import com.linecorp.bot.model.message.template.CarouselTemplate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +37,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.w3c.dom.ls.LSInput;
 
+import com.example.entity.Book;
 import com.example.entity.BotInformation;
 import com.example.entity.Sentence;
-import com.example.entity.SentenceEntityRelation;
-import com.example.entity.SentenceEntityRelationPK;
+import com.example.repository.BookRepository;
 import com.example.repository.BotInformationRepository;
 import com.example.repository.EntityRepository;
 import com.example.repository.SentenceEntityRelationRepository;
@@ -49,6 +58,8 @@ import com.google.cloud.language.v1.Document.Type;
 @RestController
 public class QnaBotController {
 
+	private String option = "確認する";
+
 	@Autowired
 	SentenceRepository sentenceRepository;
 
@@ -58,6 +69,8 @@ public class QnaBotController {
 	SentenceEntityRelationRepository sentenceRelationRepository;
 	@Autowired
 	BotInformationRepository botInformationRepository;
+	@Autowired
+	BookRepository bookRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(QnaBotController.class);
 
@@ -110,23 +123,22 @@ public class QnaBotController {
 				if (sentence != null && !sentence.equals("")) {
 					if (botInformation.getLanguageBot().equals("japanese")) {
 
-						if (sentence.getSentence().length() > 149) {
+						if (sentence.getSentence().length() > 151) {
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									sentence.getSentence().substring(0, 149) + " : 素晴らしいです！",
+									sentence.getSentence().substring(0, 151),
 									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									sentence.getSentence().substring(0, 149) + " : 素晴らしいです!", buttonsTemplate);
+									sentence.getSentence().substring(0, 151), buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 
 						} else {
-							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									sentence.getSentence() + " : 素晴らしいです!",
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence.getSentence(),
 									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-							TemplateMessage templateMessage = new TemplateMessage(
-									sentence.getSentence() + " : 素晴らしいです!", buttonsTemplate);
+							TemplateMessage templateMessage = new TemplateMessage(sentence.getSentence() + " 素晴らしいです!",
+									buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
@@ -135,23 +147,21 @@ public class QnaBotController {
 
 					}
 					if (botInformation.getLanguageBot().equals("english")) {
-						if (sentence.getSentence().length() > 136) {
+						if (sentence.getSentence().length() > 138) {
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"Most Similar sentence : " + sentence.getSentence().substring(0, 136),
+									sentence.getSentence().substring(0, 138),
 									Arrays.asList(new MessageAction("Nice！", "Nice!")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									"Most Similar sentence : " + sentence.getSentence().substring(0, 136),
-									buttonsTemplate);
+									sentence.getSentence().substring(0, 138), buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 						} else {
-							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"Most Similar sentence : " + sentence.getSentence(),
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence.getSentence(),
 									Arrays.asList(new MessageAction("Nice！", "Nice!")));
-							TemplateMessage templateMessage = new TemplateMessage(
-									"Most Similar sentence : " + sentence.getSentence(), buttonsTemplate);
+							TemplateMessage templateMessage = new TemplateMessage(sentence.getSentence(),
+									buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
@@ -189,11 +199,10 @@ public class QnaBotController {
 									if (sentence1.getSentence().length() > 149) {
 
 										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-												sentence1.getSentence().substring(0, 149) + " : 素晴らしいです!",
+												sentence1.getSentence().substring(0, 149),
 												Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
 										TemplateMessage templateMessage = new TemplateMessage(
-												sentence1.getSentence().substring(0, 149) + " : 素晴らしいです!",
-												buttonsTemplate);
+												sentence1.getSentence().substring(0, 149), buttonsTemplate);
 
 										PushMessage pushMessage = new PushMessage(userId, templateMessage);
 										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
@@ -201,10 +210,10 @@ public class QnaBotController {
 
 									} else {
 										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-												sentence1.getSentence() + " : 素晴らしいです!",
+												sentence1.getSentence(),
 												Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-										TemplateMessage templateMessage = new TemplateMessage(
-												sentence1.getSentence() + " : 素晴らしいです!", buttonsTemplate);
+										TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence(),
+												buttonsTemplate);
 
 										PushMessage pushMessage = new PushMessage(userId, templateMessage);
 										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
@@ -242,21 +251,20 @@ public class QnaBotController {
 									if (sentence1.getSentence().length() > 136) {
 
 										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-												"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
+												sentence1.getSentence().substring(0, 136),
 												Arrays.asList(new MessageAction("Nice!", "Nice!")));
 										TemplateMessage templateMessage = new TemplateMessage(
-												"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
-												buttonsTemplate);
+												sentence1.getSentence().substring(0, 136), buttonsTemplate);
 
 										PushMessage pushMessage = new PushMessage(userId, templateMessage);
 										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
 												.pushMessage(pushMessage).execute();
 									} else {
 										ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-												"Most Similar sentence : " + sentence1.getSentence(),
+												sentence1.getSentence(),
 												Arrays.asList(new MessageAction("Nice!", "Nice!")));
-										TemplateMessage templateMessage = new TemplateMessage(
-												"Most Similar sentence : " + sentence1.getSentence(), buttonsTemplate);
+										TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence(),
+												buttonsTemplate);
 
 										PushMessage pushMessage = new PushMessage(userId, templateMessage);
 										LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
@@ -305,13 +313,13 @@ public class QnaBotController {
 		case "invite friend":
 			if (botInformation.getLanguageBot().equals("japanese")) {
 				logger.info("-----------JAPANESE LANGUAGE INVITE FRIEND----------------");
-				TextMessage textMessage1 = new TextMessage("どうも。この本にもっと良いことを書いているよ。もし良かったらどうぞ。\n https://amzn.to/2Gq1FMr");
+				TextMessage textMessage1 = new TextMessage("どうも。このリンクをシェアしてくれ。\n https://line.me/R/ti/p/%40tms8877v");
 				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
 			} else if (botInformation.getLanguageBot().equals("english")) {
 				logger.info("-----------ENGLISH LANGUAGE INVITE FRIEND----------------");
 				TextMessage textMessage1 = new TextMessage(
-						"Thank you! here is your link. https://amzn.to/2Gq1FMr");
+						"Thank you! here is your link.\n https://line.me/R/ti/p/%40tms8877v");
 				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
 			}
@@ -332,21 +340,20 @@ public class QnaBotController {
 						if (sentence1.getSentence().length() > 151) {
 
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									sentence1.getSentence().substring(0, 151) + " : 素晴らしいです!",
+									sentence1.getSentence().substring(0, 151),
 									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									sentence1.getSentence().substring(0, 151) + " : 素晴らしいです!", buttonsTemplate);
+									sentence1.getSentence().substring(0, 151), buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 
 						} else {
-							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									sentence1.getSentence() + " : 素晴らしいです!",
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence1.getSentence(),
 									Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-							TemplateMessage templateMessage = new TemplateMessage(
-									sentence1.getSentence() + " : 素晴らしいです!", buttonsTemplate);
+							TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence(),
+									buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
@@ -367,24 +374,22 @@ public class QnaBotController {
 					botInformationRepository.saveAndFlush(botInformation);
 					if (sentence1 != null && !sentence1.equals("")) {
 
-						if (sentence1.getSentence().length() > 136) {
+						if (sentence1.getSentence().length() > 138) {
 
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
+									sentence1.getSentence().substring(0, 138),
 									Arrays.asList(new MessageAction("Nice!", "Nice!")));
 							TemplateMessage templateMessage = new TemplateMessage(
-									"Most Similar sentence : " + sentence1.getSentence().substring(0, 136),
-									buttonsTemplate);
+									sentence1.getSentence().substring(0, 138), buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
 									.execute();
 						} else {
-							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-									"Most Similar sentence : " + sentence1.getSentence(),
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence1.getSentence(),
 									Arrays.asList(new MessageAction("Nice!", "Nice!")));
-							TemplateMessage templateMessage = new TemplateMessage(
-									"Most Similar sentence : " + sentence1.getSentence(), buttonsTemplate);
+							TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence(),
+									buttonsTemplate);
 
 							PushMessage pushMessage = new PushMessage(userId, templateMessage);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
@@ -405,16 +410,31 @@ public class QnaBotController {
 			break;
 
 		case "nice":
+
+			List<Integer> bookIDs = new ArrayList<>();
+			bookIDs = bookRepository.getAllBooksIDs();
+			List<Integer> randomBookIDs = new ArrayList<>();
+			randomBookIDs = pickNRandom(bookIDs, 5);
 			if (botInformation.getLanguageBot().equals("japanese")) {
-				TextMessage textMessage1 = new TextMessage(
-						"どうも。この本にもっと良いことを書いているよ。もし良かったらどうぞ。\n" + "https://amzn.to/2Gq1FMr");
+				TextMessage textMessage1 = new TextMessage("どうも。この本を読んでみないか？君に役立つであろう。");
 				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
+
+				try {
+					sendCarouselBooks(botInformation, userId, CHANNEL_ACCESS_TOKEN, timestamp, randomBookIDs);
+				} catch (IOException | JSONException e) {
+					logger.error("exception", e);
+				}
+
 			} else if (botInformation.getLanguageBot().equals("english")) {
-				TextMessage textMessage1 = new TextMessage(
-						"\nThank you! You can check more from this book.\n" + "https://amzn.to/2Gq1FMr");
+				TextMessage textMessage1 = new TextMessage("Thank you! You can check more from this book.");
 				PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 				LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
+				try {
+					sendCarouselBooks(botInformation, userId, CHANNEL_ACCESS_TOKEN, timestamp, randomBookIDs);
+				} catch (IOException | JSONException e) {
+					logger.error("exception", e);
+				}
 			}
 			break;
 
@@ -529,6 +549,61 @@ public class QnaBotController {
 		int item = sentenceIDs.get(index);
 		logger.info("****************item Japanese******************** '{}'", item);
 		return item;
+	}
+
+	public static List<Integer> pickNRandom(List<Integer> lst, int n) {
+		List<Integer> copy = new LinkedList<Integer>(lst);
+		Collections.shuffle(copy);
+		return copy.subList(0, n);
+	}
+
+	public void sendCarouselBooks(BotInformation botInformation, String userId, String CHANNEL_ACCESS_TOKEN,
+			String timestamp, List<Integer> randomBookdsID) throws IOException, JSONException {
+
+		java.util.List<CarouselColumn> columns = new ArrayList<>();
+		String img = null;
+		String title = "";
+		String text = "";
+		Image image = null;
+
+		logger.info("------------Book IDS Size --------------- '{}'", randomBookdsID.size());
+		for (int id : randomBookdsID) {
+			Book b = new Book();
+			b = bookRepository.findOne(id);
+			img = b.getImageURL();
+			try {
+				URL url = new URL(img);
+				image = ImageIO.read(url);
+			} catch (IOException e) {
+				logger.error("*************EXCEPTION URL IMAGE***************", e);
+			}
+
+			if (b.getNameBook() != null && !b.getNameBook().equals("")) {
+
+				text = b.getNameBook();
+				byte[] textByte = text.getBytes(StandardCharsets.UTF_8); // Explicit,
+				text = new String(textByte, StandardCharsets.UTF_8);
+			} else {
+				text = "no text found ";
+			}
+			String link = b.getLink();
+			URIAction uriAction = new URIAction(option, link);
+			CarouselColumn column = new CarouselColumn(img, null, text, Arrays.asList(uriAction));
+			columns.add(column);
+		}
+
+		CarouselTemplate carouselTemplate = new CarouselTemplate(columns);
+		String templateText = "";
+		templateText = "Which book?";
+
+		TemplateMessage templateMessage = new TemplateMessage(templateText, carouselTemplate);
+		PushMessage pushMessage = new PushMessage(userId, templateMessage);
+
+		try {
+			LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
+		} catch (IOException e) {
+			logger.error("Exception is raised ", e);
+		}
 	}
 
 }
