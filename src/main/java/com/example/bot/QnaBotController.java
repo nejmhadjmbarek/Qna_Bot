@@ -163,7 +163,7 @@ public class QnaBotController {
 							sentence1 = sentenceRepository.findOne(idSentence);
 							botInformation.setSentenceToSearch(sentence1.getSentence());
 							botInformationRepository.saveAndFlush(botInformation);
-							TextMessage textMessage1 = new TextMessage("ふむ。。。それは面白いな。つまりこういうことかね？");
+							TextMessage textMessage1 = new TextMessage("ふむ。。。それは興味深いな。つまりこういうことかね？");
 
 							PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
 							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1)
