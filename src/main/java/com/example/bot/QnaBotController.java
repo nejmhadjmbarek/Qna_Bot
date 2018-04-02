@@ -12,11 +12,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import javax.imageio.ImageIO;
 
+import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
-import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.message.TemplateMessage;
@@ -24,6 +26,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,6 +76,10 @@ public class QnaBotController {
 	BookRepository bookRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(QnaBotController.class);
+	final String CHANNEL_ACCESS_TOKEN = "w2zniY4znZ94KwmBJcdCh4F72E/RMbInAyVjoI0+NFSVWDkJJU1IaBTRUkCe+wloVEuqk6ezpeYrw+hNHuukTZtl1NXh5OKPVg4VVVAVcmRrA76uRgGli7FN+ZFY7aPavh1li6+cRYlKwsY0ZXvcgwdB04t89/1O/w1cDnyilFU=";
+	// final String CHANNEL_ACCESS_TOKEN =
+	// "Zo8OmM486rC/8UcDZL3FLs6YAO14ldUxJGx0XLmMBu9cCxITbh/6cPt9W+N4yfiqlZfly0ExnLxaTBuhBNnCYy4h1w2nH1eVliaXZ5CPifZKDFdwTTE8c16bT3WSeWC+KvJvd8i2QpDi2CfFKbrBJQdB04t89/1O/w1cDnyilFU=";
+	final LineMessagingClient client = LineMessagingClient.builder(CHANNEL_ACCESS_TOKEN).build();
 
 	@RequestMapping(value = "/webhookQnaBot", method = RequestMethod.POST)
 	private @ResponseBody Map<String, Object> webhook(@RequestBody Map<String, Object> obj)
@@ -80,7 +87,6 @@ public class QnaBotController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-		String CHANNEL_ACCESS_TOKEN = "w2zniY4znZ94KwmBJcdCh4F72E/RMbInAyVjoI0+NFSVWDkJJU1IaBTRUkCe+wloVEuqk6ezpeYrw+hNHuukTZtl1NXh5OKPVg4VVVAVcmRrA76uRgGli7FN+ZFY7aPavh1li6+cRYlKwsY0ZXvcgwdB04t89/1O/w1cDnyilFU=";
 
 		JSONObject jsonResult = new JSONObject(obj);
 
@@ -88,6 +94,8 @@ public class QnaBotController {
 
 		JSONObject rsl = jsonResult.getJSONObject("originalRequest");
 		JSONObject data = rsl.getJSONObject("data");
+		String replyToken = data.getString("replyToken");
+
 		JSONObject source = data.getJSONObject("source");
 		JSONObject message = data.getJSONObject("message");
 		String userId = source.getString("userId");
@@ -105,6 +113,7 @@ public class QnaBotController {
 		logger.info("********************LANGUAGE : '{}'", language);
 		logger.info("*******************INTENT NAME : '{}'", intentName);
 		logger.info("********************CUSTOMER MESSAGE : '{}'", customerMessage);
+		logger.info("********************replyToken : '{}'", replyToken);
 
 		BotInformation botInformation = new BotInformation();
 
@@ -129,9 +138,13 @@ public class QnaBotController {
 						TemplateMessage templateMessage = new TemplateMessage(sentence.getSentence().substring(0, 151),
 								buttonsTemplate);
 
-						PushMessage pushMessage = new PushMessage(userId, templateMessage);
-						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
-								.execute();
+						ReplyMessage replyMessage = new ReplyMessage(replyToken, templateMessage);
+						BotApiResponse botApiResponse;
+						try {
+							botApiResponse = client.replyMessage(replyMessage).get();
+						} catch (InterruptedException | ExecutionException e) {
+							e.printStackTrace();
+						}
 
 					} else {
 						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence.getSentence(),
@@ -139,64 +152,46 @@ public class QnaBotController {
 						TemplateMessage templateMessage = new TemplateMessage(sentence.getSentence() + " 素晴らしいです!",
 								buttonsTemplate);
 
-						PushMessage pushMessage = new PushMessage(userId, templateMessage);
-						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
-								.execute();
+						ReplyMessage replyMessage = new ReplyMessage(replyToken, templateMessage);
+						BotApiResponse botApiResponse;
+						try {
+							botApiResponse = client.replyMessage(replyMessage).get();
+						} catch (InterruptedException | ExecutionException e) {
+							e.printStackTrace();
+						}
+
 					}
 
 				} else {
 
 					try {
 
-						int idSentence;
-
 						logger.info("------------------ENTITIES SIZE -------------------- '{}'", entities.size());
 						if (entities.isEmpty()) {
 							TextMessage textMessage1 = new TextMessage("なに？それは具体的にどういうことかな？");
-							PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
-							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1)
-									.execute();
+
+							ReplyMessage replyMessage = new ReplyMessage(replyToken, textMessage1);
+							BotApiResponse botApiResponse;
+							try {
+								botApiResponse = client.replyMessage(replyMessage).get();
+							} catch (InterruptedException | ExecutionException e) {
+								e.printStackTrace();
+							}
+
 						} else {
-							idSentence = anyID("jp");
-							logger.info("*************idSentence****************'{}'", idSentence);
-							Sentence sentence1 = new Sentence();
-							sentence1 = sentenceRepository.findOne(idSentence);
-							botInformation.setSentenceToSearch(sentence1.getSentence());
-							botInformationRepository.saveAndFlush(botInformation);
-							TextMessage textMessage1 = new TextMessage("ふむ。。。それは興味深いな。つまりこういうことかね？");
 
-							PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
-							LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1)
-									.execute();
+							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+									"ふむ。。。それについては考えがまとまってないな。",
+									Arrays.asList(new MessageAction("どう思いますか？", "でも、先生はどう思いますか？")));
+							TemplateMessage templateMessage = new TemplateMessage("ふむ。。。それについては考えがまとまってないな。",
+									buttonsTemplate);
 
-							if (sentence1 != null && !sentence1.equals("")) {
-
-								if (sentence1.getSentence().length() > 149) {
-
-									ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-											sentence1.getSentence().substring(0, 149),
-											Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-									TemplateMessage templateMessage = new TemplateMessage(
-											sentence1.getSentence().substring(0, 149), buttonsTemplate);
-
-									PushMessage pushMessage = new PushMessage(userId, templateMessage);
-									LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
-											.pushMessage(pushMessage).execute();
-
-								} else {
-									ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-											sentence1.getSentence(),
-											Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-									TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence(),
-											buttonsTemplate);
-
-									PushMessage pushMessage = new PushMessage(userId, templateMessage);
-									LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build()
-											.pushMessage(pushMessage).execute();
-								}
-
-							} else {
-								logger.info("*************NO RANDOM SENTENCE JAPANESE************************** ");
+							ReplyMessage replyMessage = new ReplyMessage(replyToken, templateMessage);
+							BotApiResponse botApiResponse;
+							try {
+								botApiResponse = client.replyMessage(replyMessage).get();
+							} catch (InterruptedException | ExecutionException e) {
+								e.printStackTrace();
 							}
 						}
 
@@ -211,45 +206,106 @@ public class QnaBotController {
 
 			break;
 
+		case "noEntityInDB":
+			int idSentence;
+			idSentence = anyID("jp");
+			logger.info("*************idSentence****************'{}'", idSentence);
+			Sentence sentence1 = new Sentence();
+			sentence1 = sentenceRepository.findOne(idSentence);
+			botInformation.setSentenceToSearch(sentence1.getSentence());
+			botInformationRepository.saveAndFlush(botInformation);
+
+			if (sentence1 != null && !sentence1.equals("")) {
+
+				if (sentence1.getSentence().length() > 149) {
+
+					ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
+							sentence1.getSentence().substring(0, 149),
+							Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
+					TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence().substring(0, 149),
+							buttonsTemplate);
+
+					ReplyMessage replyMessage1 = new ReplyMessage(replyToken, templateMessage);
+					BotApiResponse botApiResponse1;
+					try {
+						botApiResponse1 = client.replyMessage(replyMessage1).get();
+					} catch (InterruptedException | ExecutionException e) {
+						e.printStackTrace();
+					}
+				} else {
+					ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence1.getSentence(),
+							Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
+					TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence(), buttonsTemplate);
+
+					ReplyMessage replyMessage1 = new ReplyMessage(replyToken, templateMessage);
+					BotApiResponse botApiResponse1;
+					try {
+						botApiResponse1 = client.replyMessage(replyMessage1).get();
+					} catch (InterruptedException | ExecutionException e) {
+						e.printStackTrace();
+					}
+
+				}
+
+			} else {
+				logger.info("*************NO RANDOM SENTENCE JAPANESE************************** ");
+			}
+			break;
+
 		/************ user wants to invite his friends *************/
 		case "invite friend":
 			logger.info("-----------JAPANESE LANGUAGE INVITE FRIEND----------------");
 			TextMessage textMessage1 = new TextMessage("そうか。ではこのリンクをシェアするが良い。\n https://line.me/R/ti/p/%40tms8877v");
-			PushMessage pushMessage1 = new PushMessage(userId, textMessage1);
-			LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage1).execute();
+			ReplyMessage replyMessage = new ReplyMessage(replyToken, textMessage1);
+			BotApiResponse botApiResponse;
+			try {
+				botApiResponse = client.replyMessage(replyMessage).get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
 
 			break;
 		case "search random sentence":
 			try {
-				int idSentence;
-				idSentence = anyID("jp");
-				logger.info("*************idSentence****************", idSentence);
-				Sentence sentence1 = new Sentence();
-				sentence1 = sentenceRepository.findOne(idSentence);
-				botInformation.setSentenceToSearch(sentence1.getSentence());
+				int idSentence1;
+				idSentence1 = anyID("jp");
+				logger.info("*************idSentence****************", idSentence1);
+				Sentence sentence11 = new Sentence();
+				sentence11 = sentenceRepository.findOne(idSentence1);
+				botInformation.setSentenceToSearch(sentence11.getSentence());
 				botInformationRepository.saveAndFlush(botInformation);
-				if (sentence1 != null && !sentence1.equals("")) {
+				if (sentence11 != null && !sentence11.equals("")) {
 
-					if (sentence1.getSentence().length() > 151) {
+					if (sentence11.getSentence().length() > 151) {
 
 						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
-								sentence1.getSentence().substring(0, 151),
+								sentence11.getSentence().substring(0, 151),
 								Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-						TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence().substring(0, 151),
-								buttonsTemplate);
+						TemplateMessage templateMessage = new TemplateMessage(
+								sentence11.getSentence().substring(0, 151), buttonsTemplate);
 
-						PushMessage pushMessage = new PushMessage(userId, templateMessage);
-						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
-								.execute();
+						ReplyMessage replyMessage1 = new ReplyMessage(replyToken, templateMessage);
+						BotApiResponse botApiResponse1;
+						try {
+							botApiResponse1 = client.replyMessage(replyMessage1).get();
+						} catch (InterruptedException | ExecutionException e) {
+							e.printStackTrace();
+						}
 
 					} else {
-						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence1.getSentence(),
+						ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, sentence11.getSentence(),
 								Arrays.asList(new MessageAction("素晴らしいです！", "素晴らしいです！")));
-						TemplateMessage templateMessage = new TemplateMessage(sentence1.getSentence(), buttonsTemplate);
+						TemplateMessage templateMessage = new TemplateMessage(sentence11.getSentence(),
+								buttonsTemplate);
 
-						PushMessage pushMessage = new PushMessage(userId, templateMessage);
-						LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage)
-								.execute();
+						ReplyMessage replyMessage1 = new ReplyMessage(replyToken, templateMessage);
+						BotApiResponse botApiResponse1;
+						try {
+							botApiResponse1 = client.replyMessage(replyMessage1).get();
+						} catch (InterruptedException | ExecutionException e) {
+							e.printStackTrace();
+						}
+
 					}
 				} else {
 					logger.info("*************NO RANDOM SENTENCE JAPANESE************************** ");
@@ -261,21 +317,30 @@ public class QnaBotController {
 			break;
 
 		case "nice":
+			ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, "そうか。おぬしに役立ちそうな本をおすすめしてもいいか？",
+					Arrays.asList(new MessageAction("教えてください！", "教えてください！")));
+			TemplateMessage templateMessage = new TemplateMessage("そうか。おぬしに役立ちそうな本をおすすめしてもいいか？", buttonsTemplate);
+			ReplyMessage replyMessage1 = new ReplyMessage(replyToken, templateMessage);
+			BotApiResponse botApiResponse1;
+			try {
+				botApiResponse1 = client.replyMessage(replyMessage1).get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
 
+			break;
+
+		case "pleaseTellMe":
 			List<Integer> bookIDs = new ArrayList<>();
 			bookIDs = bookRepository.getAllBooksIDs();
 			List<Integer> randomBookIDs = new ArrayList<>();
 			randomBookIDs = pickNRandom(bookIDs, 5);
-			TextMessage textMessage11 = new TextMessage("そうか。ではこの本を読んで見るが良い。おぬしに役立つことであろう。");
-			PushMessage pushMessage11 = new PushMessage(userId, textMessage11);
-			LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage11).execute();
-
+			logger.info("-----------PLEASE TELL ME INTENT------------------");
 			try {
-				sendCarouselBooks(botInformation, userId, CHANNEL_ACCESS_TOKEN, timestamp, randomBookIDs);
+				sendCarouselBooks(botInformation, CHANNEL_ACCESS_TOKEN, replyToken, timestamp, randomBookIDs);
 			} catch (IOException | JSONException e) {
 				logger.error("exception", e);
 			}
-
 			break;
 		}
 		return obj;
@@ -369,9 +434,10 @@ public class QnaBotController {
 		return copy.subList(0, n);
 	}
 
-	public void sendCarouselBooks(BotInformation botInformation, String userId, String CHANNEL_ACCESS_TOKEN,
+	public void sendCarouselBooks(BotInformation botInformation, String CHANNEL_ACCESS_TOKEN, String replyToken,
 			String timestamp, List<Integer> randomBookdsID) throws IOException, JSONException {
 
+		logger.info("--------------------------------REPLY TOKEN ---------------------- '{}'", replyToken);
 		java.util.List<CarouselColumn> columns = new ArrayList<>();
 		String img = null;
 		String title = "";
@@ -409,13 +475,15 @@ public class QnaBotController {
 		templateText = "Which book?";
 
 		TemplateMessage templateMessage = new TemplateMessage(templateText, carouselTemplate);
-		PushMessage pushMessage = new PushMessage(userId, templateMessage);
 
+		ReplyMessage replyMessage1 = new ReplyMessage(replyToken, templateMessage);
+		BotApiResponse botApiResponse1;
 		try {
-			LineMessagingServiceBuilder.create(CHANNEL_ACCESS_TOKEN).build().pushMessage(pushMessage).execute();
-		} catch (IOException e) {
-			logger.error("Exception is raised ", e);
+			botApiResponse1 = client.replyMessage(replyMessage1).get();
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
 		}
+
 	}
 
 }
