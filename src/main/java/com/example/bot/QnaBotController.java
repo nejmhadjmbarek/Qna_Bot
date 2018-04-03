@@ -182,7 +182,7 @@ public class QnaBotController {
 
 							ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null,
 									"ふむ。。。それについては考えがまとまってないな。",
-									Arrays.asList(new MessageAction("どう思いますか？", "でも、先生はどう思いますか？")));
+									Arrays.asList(new MessageAction("でも、教えてほしいです！", "でも、教えてほしいです！")));
 							TemplateMessage templateMessage = new TemplateMessage("ふむ。。。それについては考えがまとまってないな。",
 									buttonsTemplate);
 
@@ -255,7 +255,7 @@ public class QnaBotController {
 		/************ user wants to invite his friends *************/
 		case "invite friend":
 			logger.info("-----------JAPANESE LANGUAGE INVITE FRIEND----------------");
-			TextMessage textMessage1 = new TextMessage("そうか。ではこのリンクをシェアするが良い。\n https://line.me/R/ti/p/%40tms8877v");
+			TextMessage textMessage1 = new TextMessage("そうか。ではこのリンクをシェアするが良い。\n https://line.me/R/ti/p/%40tsv3082a");
 			ReplyMessage replyMessage = new ReplyMessage(replyToken, textMessage1);
 			BotApiResponse botApiResponse;
 			try {
@@ -472,7 +472,7 @@ public class QnaBotController {
 
 		CarouselTemplate carouselTemplate = new CarouselTemplate(columns);
 		String templateText = "";
-		templateText = "Which book?";
+		templateText = "この本を読んでみるが良い。";
 
 		TemplateMessage templateMessage = new TemplateMessage(templateText, carouselTemplate);
 
